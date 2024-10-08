@@ -56,6 +56,7 @@ metadata:
     app.kubernetes.io/name: app-of-apps
     app.kubernetes.io/instance-of: composer-ai
     app.kubernetes.io/managed-by: ArgoCD
+    tenant: composer-ai
   namespace: openshift-gitops
 spec:
   destination:
