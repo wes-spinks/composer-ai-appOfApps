@@ -60,14 +60,15 @@ spec:
             - containerPort: 50051
               protocol: TCP
           env:
-            # Does not matter what this is just needs to not change on redeploy
+            # Does not matter what the hostname is just needs to not change on redeploy or will cause connection issues
           - name: CLUSTER_HOSTNAME
             value: weaviate-vector-db
-          - name: HUGGINGFACE_APIKEY
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secretName }}
-                key: huggingface_apikey
+          # I was told this was not required anymore TODO: Remove
+          # - name: HUGGINGFACE_APIKEY 
+            # valueFrom:
+            #   secretKeyRef:
+            #     name: {{ .Values.secretName }}
+            #     key: huggingface_apikey
           envFrom:
             - configMapRef:
                 name: weaviate-env-config-map
