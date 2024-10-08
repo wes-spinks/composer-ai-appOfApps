@@ -51,9 +51,12 @@ Create the application in the developer-gitops instance of ArgoCD:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: app-of-apps
-  # Location of ArgoCD Instance
-  namespace: developer-gitops
+  name: composer-ai-app-of-apps
+  label:
+    app.kubernetes.io/name: app-of-apps
+    app.kubernetes.io/instance-of: composer-ai
+    app.kubernetes.io/managed-by: ArgoCD
+  namespace: openshift-gitops
 spec:
   destination:
     server: 'https://kubernetes.default.svc'

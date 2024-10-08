@@ -1,14 +1,24 @@
+name: composer-ai
+# Default Namespace for the application components
 application:
-  defaultNamespace: demo-env
+  defaultNamespace: composer-ai
+
+# Git Repository for the ArgoCD Application
 repo:
-  url: https://gitlab.consulting.redhat.com/redprojectai/infrastructure/appdeploy-v2.git # Change This on Fork
+  url: https://github.com/redhat-composer-ai/appOfApps.git # Change This on Fork
   branch: main
+
+# Namespace for the ArgoCD Application
+gitops:
+  namespace: openshift-gitops
 
 # Passing this value to all of the sub-applications to make it so we can dynamically figure out urls
 clusterDomain: apps.rhsaia.vg6c.p1.openshiftapps.com
 
+# Default Values File for the Helm Chart
 defaultValuesFile: values.yaml
 
+# Applications to be deployed
 applications:
   - name: ollama-model
     path: data-ingestion/ollama

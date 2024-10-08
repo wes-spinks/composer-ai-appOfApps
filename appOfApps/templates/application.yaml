@@ -3,12 +3,15 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: {{ .name }}-{{ .namespace | default $.Values.application.defaultNamespace }}
-  # TODO: Make this a variable (although it should not be needed in theory not sure why it is)
-  namespace: developer-gitops
+  label:
+    app.kubernetes.io/name: {{ .name }}
+    app.kubernetes.io/instance-of: {{ $.Values.name }}
+    app.kubernetes.io/managed-by: ArgoCD
+  namespace: {{ $.Values.gitops.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "{{ .syncWave | default 0 }}"
 spec:
-  project: default
+  project: {{ $.Values.gitops.project | default "default" }}
   source:
     repoURL: {{ $.Values.repo.url }}
     targetRevision: {{ .branch | default $.Values.repo.branch }}
