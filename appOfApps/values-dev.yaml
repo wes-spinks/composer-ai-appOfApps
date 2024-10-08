@@ -1,0 +1,20 @@
+# chatbot-test-namespace
+application:
+  defaultNamespace: rhsaia-dev
+repo:
+  url: https://gitlab.consulting.redhat.com/redprojectai/infrastructure/appdeploy-v2.git
+  branch: main
+
+defaultValuesFile: dev-values.yaml
+
+applications:
+  - name: ollama-model
+    path: data-ingestion/ollama
+  - name: weaviate
+    path: data-ingestion/weaviate
+  - name: kfp-pipeline
+    path: data-ingestion/kfp
+  - name: quarkus-llm-router
+    path: chatbot/quarkus-llm-router
+  - name: mongodb
+    path: chatbot/mongodb

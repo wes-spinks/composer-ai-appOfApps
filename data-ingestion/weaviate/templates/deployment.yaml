@@ -1,0 +1,89 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+  name: weaviate-vector-db
+  labels:
+    {{- include "labels" . | nindent 4 }}
+    deployment: weaviate-vector-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weaviate-vector-db
+  template:
+    metadata:
+      labels:
+        app: weaviate-vector-db
+        deployment: weaviate-vector-db
+    spec:
+      containers:
+        - name: weaviate-vector-db
+          image: {{ .Values.image }}
+          args:
+            - --host
+            - 0.0.0.0
+            - --port
+            - "8080"
+            - --scheme
+            - http
+          # # Liveness Probe
+          # livenessProbe:
+          #   httpGet:
+          #     path: "/v1/.well-known/live"
+          #     port: 8080
+          #   initialDelaySeconds: 15
+          #   timeoutSeconds: 2
+          #   periodSeconds: 5
+          #   failureThreshold: 3
+          # # Readiness Probe
+          # readinessProbe:
+          #   httpGet:
+          #     path: "/v1/.well-known/ready"
+          #     port: 8080
+          #   initialDelaySeconds: 5
+          #   timeoutSeconds: 2
+          #   periodSeconds: 5
+          #   successThreshold: 1
+        # # Startup Probe
+        #   startupProbe:
+        #     httpGet:
+        #       path: "/v1/.well-known/ready"
+        #       port: 8080
+        #     initialDelaySeconds: 10
+        #     timeoutSeconds: 2
+        #     periodSeconds: 5
+        #     failureThreshold: 10
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 50051
+              protocol: TCP
+          env:
+            # Does not matter what this is just needs to not change on redeploy
+          - name: CLUSTER_HOSTNAME
+            value: weaviate-vector-db
+          - name: HUGGINGFACE_APIKEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secretName }}
+                key: huggingface_apikey
+          envFrom:
+            - configMapRef:
+                name: weaviate-env-config-map
+            - secretRef:
+                name: weaviate-api-key-secret
+          volumeMounts:
+            - mountPath: "/var/lib/weaviate"
+              name: weaviate-db-storage
+      volumes:
+        - name: weaviate-db-storage
+          persistentVolumeClaim:
+            claimName: weaviate-db-volume-claim
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%

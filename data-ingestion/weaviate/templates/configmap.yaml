@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: weaviate-env-config-map
+  labels:
+    {{- include "labels" . | nindent 4 }}
+data:
+  # Any of these can be parameterized using Helm values 
+  ASYNC_INDEXING: 'false'
+  AUTOSCHEMA_ENABLED: 'true'
+  DISABLE_LAZY_LOAD_SHARDS: 'false'
+  DISK_USE_WARNING_PERCENTAGE: '80'
+  DISK_USE_READONLY_PERCENTAGE: '90'
+  LIMIT_RESOURCES: 'true'
+  LOG_LEVEL: 'debug'
+  DISABLE_TELEMETRY: 'true'
+  AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'false'
+  DEFAULT_VECTORIZER_MODULE: 'text2vec-huggingface'
+  ENABLE_MODULES: '{{ .Values.enableModules }}'
+  PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+  PERSISTENCE_LSM_ACCESS_STRATEGY: 'mmap'
+  PROMETHEUS_MONITORING_ENABLED: 'true'
+  PROMETHEUS_MONITORING_GROUP: 'true'
+  QUERY_DEFAULTS_LIMIT: '25'
+  AUTHENTICATION_APIKEY_ENABLED: 'true'
+  AUTHENTICATION_APIKEY_USERS: 'chatbotui'
+  AUTHORIZATION_ADMINLIST_ENABLED: 'true'
+  AUTHORIZATION_ADMINLIST_USERS: 'chatbotui'
+  CLUSTER_HOSTNAME: 'weaviate-vector-db'
+binaryData: {}
+immutable: false

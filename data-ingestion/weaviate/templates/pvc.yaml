@@ -1,0 +1,18 @@
+﻿---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: weaviate-db-volume-claim
+  labels:
+    {{- include "labels" . | nindent 4 }}
+  finalizers:
+    - kubernetes.io/pvc-protection
+spec:
+  storageClassName: gp3
+  resources:
+    requests:
+      storage: 40Gi
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+...

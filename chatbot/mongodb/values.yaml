@@ -1,0 +1,11 @@
+mongodb:
+  # Values found here: https://artifacthub.io/packages/helm/bitnami/mongodb
+
+  # Not sure this is needed, but removed for now
+  networkPolicy:
+    enabled: false
+
+  # Obviously, this should be removed and allow the chart to create its own root password
+  # But that can cause issues on redeploy as it creates a new password in the kube secret but the db still has the old one 
+  auth:
+    rootPassword: P@ssw0rd

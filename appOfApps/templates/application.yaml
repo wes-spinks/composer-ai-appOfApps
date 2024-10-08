@@ -1,0 +1,34 @@
+{{- range .Values.applications }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}-{{ .namespace | default $.Values.application.defaultNamespace }}
+  # TODO: Make this a variable (although it should not be needed in theory not sure why it is)
+  namespace: developer-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ .syncWave | default 0 }}"
+spec:
+  project: default
+  source:
+    repoURL: {{ $.Values.repo.url }}
+    targetRevision: {{ .branch | default $.Values.repo.branch }}
+    path: {{ .path | default .name }}
+    helm:
+      valueFiles: 
+        - {{ .valueFile | default $.Values.defaultValuesFile }}
+      parameters:
+        - name: clusterDomain
+          value: {{ $.Values.clusterDomain }}
+        {{- range .parameters }}
+        - name: {{ .name }}
+          value: {{ .value }}
+        {{- end }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .namespace | default $.Values.application.defaultNamespace }}
+  syncPolicy:
+    automated: 
+      prune: true
+      selfHeal: true
+---
+{{- end }}

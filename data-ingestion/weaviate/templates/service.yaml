@@ -1,0 +1,24 @@
+﻿kind: Service
+apiVersion: v1
+metadata:
+  name: weaviate-vector-db
+  labels:
+    {{- include "labels" . | nindent 4 }}
+spec:
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: 50051-grcp
+      protocol: TCP
+      port: 50051
+      targetPort: 50051
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  sessionAffinity: None
+  selector:
+    app: weaviate-vector-db
+    deployment: weaviate-vector-db
+status:
+  loadBalancer: {}

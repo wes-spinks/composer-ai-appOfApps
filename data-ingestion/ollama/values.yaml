@@ -1,0 +1,42 @@
+allowedOrigins: "*"
+
+name: ollama-model
+
+image:  quay.io/redhat-saia/ollama-model-serve-multi:latest
+imagePullPolicy: Always
+
+# Important: Using 0 replicas to save resources on the cluster but this does mean that it will take a bit on startup before the model is available
+minReplicas: 1
+scaleDownDelay: 15m
+
+# If storage was created through the ODH operator, the key will be the name of the secret created
+storage:
+  name: 'aws-connection-o-fish-bucket' # Name of the secret holding the storage information
+  path: multi # Path to the model in the storage
+  aws:
+    enabled: false # IMPORTANT: this creates a secret and SHOULD NOT BE USED other than for demo purposes, any keys created for this should be short lived and very limited readonly access to the specific bucket being used
+    accessKey: MY_ACCESS_KEY
+    region: MY_REGION
+    bucket: MY_BUCKET
+    endpoint: https://s3.us-east-1.amazonaws.com
+    secretKey: MY_SECRET_KEY
+
+# # Use nodes with GPU Nvidia A10
+# tolerations:
+#   key: "nvidia.com/gpu"
+#   effect: NoSchedule
+
+# servingModel:
+#   name: ollama
+#   model:
+#     file: model.gguf # Ignore for Multi Model
+#     path: /mnt/models
+#   resources:
+#     limits:
+#       cpu: '2'
+#       memory: 8Gi
+#       nvidia.com/gpu: '1'
+#     requests:
+#       cpu: 100m
+#       memory: 500Mi
+#       nvidia.com/gpu: '1'

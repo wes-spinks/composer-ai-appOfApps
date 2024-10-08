@@ -1,0 +1,12 @@
+labels:
+  app: weaviate-vector-db
+  app.kubernetes.io/component: weaviate-vector-db
+  app.kubernetes.io/instance: weaviate-vector-db
+  app.kubernetes.io/name: weaviate-vector-db
+  app.kubernetes.io/part-of: rhsaia
+
+image: quay.io/redhat-saia/weaviate:1.24.4
+
+enableModules: text2vec-openai,generative-openai,qna-openai,text2vec-huggingface
+
+secretName: ai-keys  # HUGGINGFACE_APIKEY

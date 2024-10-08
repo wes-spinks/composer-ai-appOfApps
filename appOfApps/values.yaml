@@ -1,0 +1,22 @@
+application:
+  defaultNamespace: demo-env
+repo:
+  url: https://gitlab.consulting.redhat.com/redprojectai/infrastructure/appdeploy-v2.git # Change This on Fork
+  branch: main
+
+# Passing this value to all of the sub-applications to make it so we can dynamically figure out urls
+clusterDomain: apps.rhsaia.vg6c.p1.openshiftapps.com
+
+defaultValuesFile: values.yaml
+
+applications:
+  - name: ollama-model
+    path: data-ingestion/ollama
+  - name: weaviate
+    path: data-ingestion/weaviate
+  - name: kfp-pipeline
+    path: data-ingestion/kfp
+  - name: quarkus-llm-router
+    path: chatbot/quarkus-llm-router
+  - name: mongodb
+    path: chatbot/mongodb

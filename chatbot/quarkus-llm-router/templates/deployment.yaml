@@ -1,0 +1,68 @@
+﻿kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Values.name }}
+  labels: 
+    {{- include "labels" . | nindent 4 }}
+    deployment: {{ .Values.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+        deployment: {{ .Values.name }}
+        {{- if .Values.serviceMesh.enabled }}
+        sidecar.istio.io/inject: "true"
+        {{- end }}
+    spec:
+      containers:
+        - name: {{ .Values.name }}
+          image: {{ .Values.image }}
+          ports:
+            - containerPort: 5000
+              protocol: TCP
+          envFrom:
+          - configMapRef:
+              name: {{ .Values.name }}-config
+          imagePullPolicy: {{ .Values.imagePullPolicy | default "IfNotPresent" }}
+          resources:
+            {{- .Values.resources | toYaml | nindent 12 }}
+          env:
+            - name: WEAVIATE_DEFAULT_APIKEY
+              valueFrom:
+                secretKeyRef:
+                  name: weaviate-api-key-secret
+                  key: AUTHENTICATION_APIKEY_ALLOWED_KEYS
+            - name: QUARKUS_MONGODB_CONNECTION_STRING
+              value: mongodb://mongodb-{{ .Release.Namespace }}:27017
+            - name: QUARKUS_MONGODB_DATABASE
+              value: composer
+            - name: QUARKUS_MONGODB_CREDENTIALS_AUTH_SOURCE
+              value: {{ .Values.mongodb.authSource }}
+            - name: QUARKUS_MONGODB_CREDENTIALS_USERNAME
+              value: {{ .Values.mongodb.username }}
+            - name: QUARKUS_MONGODB_CREDENTIALS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ tpl .Values.mongodb.passwordSecret . }}
+                  key: {{ .Values.mongodb.passwordKey }}
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      {{- with .Values.tolerations }}
+      tolerations:
+        - key: {{ .key }}
+          operator: {{ .operator | default "Equal" }}
+          {{- if .value }}
+          value: {{ .value }}
+          {{- end }}
+          effect: {{ .effect | default "NoExecute" }}
+      {{- end }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%

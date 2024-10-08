@@ -1,0 +1,45 @@
+#     LLMID          --->          S3 Path
+#   | "Mistral-7B-Instruct-v0.3"  // "Mistral-7B-Instruct-v0.3"
+#   | "Mistral-7B-Instruct-v0.2"  // "mistral-7b-Instruct-v0.2-vllm" 
+#   | "Mistral-7B-v0.1"           // "Mistral-7B-v0.1"
+#   | "Meta-Llama-3-8B-Instruct"  // "Meta-Llama-3-8B-Instruct"
+#   | "gemma-2b"                  // "gemma"
+#   | "gpt2"                      // "gpt2"
+#   | "granite-8b-code-instruct"  // "granite"
+minReplicas: 1
+
+tolerations:
+  key: "nvidia.com/gpu"
+  effect: NoSchedule
+
+servingModel:
+  name: vllm
+  model:
+    path: /mnt/models
+  resources:
+    limits:
+      cpu: '4'
+      memory: 20Gi
+      nvidia.com/gpu: '2'
+    requests:
+      cpu: '2'
+      memory: 16Gi
+      nvidia.com/gpu: '2'
+
+storage:
+  name: 'aws-connection-o-fish-bucket' # Name of the secret holding the storage information
+  path: Mistral-7B-Instruct-v0.3 # Path to the model in the storage
+  aws:
+    enabled: false # IMPORTANT: this creates a secret and SHOULD NOT BE USED other than for demo purposes, any keys created for this should be short lived and very limited readonly access to the specific bucket being used
+
+runtime:
+  # max_content_length: Needs to be changed respective to the model run
+  # Granite-8B-Instruct = 4096
+  # Mistral-7B = 32768
+  # Gemma-2B = 8192
+  # Llama3-8B = 8192
+  maxModelLength: 15344
+  maxSeqLength: 8192
+  gpuMemoryUtilization: 1
+  servedModelName: Mistral-7B-Instruct-v0.3
+  image: quay.io/rh-aiservices-bu/vllm-openai-ubi9:0.4.2

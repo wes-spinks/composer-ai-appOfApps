@@ -1,0 +1,38 @@
+labels:
+  app: quarkus-llm-router
+  app.kubernetes.io/component: quarkus-llm-router
+  app.kubernetes.io/instance: quarkus-llm-router
+  app.kubernetes.io/name: quarkus-llm-router
+  app.kubernetes.io/part-of: chatbot-ui
+
+name: quarkus-llm-router
+
+image:  quay.io/redhat-saia/quarkus-routing-service:1.0.17
+imagePullPolicy: Always
+
+serviceMesh:
+  enabled: false
+
+# Default secret is created by the mongodb chart
+mongodb:
+  host: mongodb://mongo-test-mongodb.svc:27017/
+  authSource: admin
+  username: root
+  passwordSecret: mongodb-{{ .Release.Namespace }}
+  passwordKey: mongodb-root-password
+
+route:
+  # The timeout needs to be pretty high if there are no GPUs available
+  timeout: 200s
+
+resources:
+  limits:
+    cpu: '2'
+    memory: 4Gi
+  requests:
+    cpu: 500m
+    memory: 1Gi
+    
+tolerations:
+  key: "nvidia.com/gpu"
+  effect: NoSchedule

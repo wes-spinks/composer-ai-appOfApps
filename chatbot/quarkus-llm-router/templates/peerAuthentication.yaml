@@ -1,0 +1,14 @@
+{{- if $.Values.serviceMesh.enabled }}
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  labels:
+    {{- include "labels" . | nindent 4 }}
+  name: {{ .Values.name }}
+spec:
+  mtls:
+    mode: PERMISSIVE
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+{{- end }}

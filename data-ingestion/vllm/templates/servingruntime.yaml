@@ -1,0 +1,43 @@
+apiVersion: serving.kserve.io/v1alpha1
+kind: ServingRuntime
+metadata:
+  annotations:
+    opendatahub.io/accelerator-name: nvidia-a10g
+    opendatahub.io/apiProtocol: REST
+    opendatahub.io/template-display-name: vLLM
+    opendatahub.io/template-name: {{ .Values.servingModel.name }}
+    openshift.io/display-name: {{ .Values.runtime.servedModelName }}
+  labels:
+    opendatahub.io/dashboard: "true"
+  name: {{ .Values.servingModel.name }}
+spec:
+  builtInAdapter:
+    modelLoadingTimeoutMillis: 90000
+  containers:
+    - args:
+        - --model
+        - /mnt/models/
+        - --download-dir
+        - /models-cache
+        - --port
+        - "8080"
+        - --dtype
+        - auto
+        - --served-model-name
+        - {{ .Values.runtime.servedModelName }}
+        - --max-model-len
+        - "{{ .Values.runtime.maxModelLength }}"
+        - --gpu-memory-utilization
+        - "{{ .Values.runtime.gpuMemoryUtilization }}"
+        - --max-seq_len-to-capture
+        - "{{ .Values.runtime.maxSeqLength }}"
+      image: {{ .Values.runtime.image }}
+      name: kserve-container
+      ports:
+        - containerPort: 8080
+          name: http1
+          protocol: TCP
+  multiModel: false
+  supportedModelFormats:
+    - autoSelect: true
+      name: pytorch

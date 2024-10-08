@@ -1,0 +1,37 @@
+﻿apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  annotations:
+    openshift.io/display-name: {{ .Values.name }}
+    serving.knative.openshift.io/enablePassthrough: 'true'
+    sidecar.istio.io/inject: 'true'
+    sidecar.istio.io/rewriteAppHTTPProbers: 'true'
+  name: {{ .Values.name }}
+  finalizers:
+    - inferenceservice.finalizers
+  labels:
+    opendatahub.io/dashboard: 'true'
+spec:
+  predictor:
+    annotations:
+      autoscaling.knative.dev/scale-down-delay: "{{ .Values.scaleDownDelay }}"
+    maxReplicas: {{ .Values.maxReplicas | default 1 }}
+    minReplicas: {{ .Values.minReplicas }}
+    model:
+      modelFormat:
+        name: any
+      name: ''
+      resources: {}
+      runtime: {{ .Values.servingModel.name }}
+      storage:
+        key: {{ .Values.storage.name }}
+        path: {{ .Values.storage.path }}    
+      {{- with .Values.tolerations }}
+    tolerations:
+      - key: {{ .key }}
+        operator: {{ .operator | default "Equal" }}
+        {{- if .value }}
+        value: {{ .value }}
+        {{- end }}
+        effect: {{ .effect | default "NoExecute" }}
+    {{- end }}
