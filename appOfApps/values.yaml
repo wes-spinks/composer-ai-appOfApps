@@ -30,3 +30,5 @@ applications:
     path: chatbot/quarkus-llm-router
   - name: mongodb
     path: chatbot/mongodb
+  - name: bootstrap
+    path: util/bootstrap
