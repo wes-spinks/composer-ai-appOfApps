@@ -63,12 +63,13 @@ spec:
             # Does not matter what the hostname is just needs to not change on redeploy or will cause connection issues
           - name: CLUSTER_HOSTNAME
             value: weaviate-vector-db
-          # I was told this was not required anymore TODO: Remove
-          # - name: HUGGINGFACE_APIKEY 
-            # valueFrom:
-            #   secretKeyRef:
-            #     name: {{ .Values.secretName }}
-            #     key: huggingface_apikey
+            # TODO: We should set up weaviate local embedding so we don't need this key:
+            # https://weaviate.io/developers/weaviate/model-providers/transformers/embeddings
+          - name: HUGGINGFACE_APIKEY 
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secretName }}
+                key: huggingface_apikey
           envFrom:
             - configMapRef:
                 name: weaviate-env-config-map

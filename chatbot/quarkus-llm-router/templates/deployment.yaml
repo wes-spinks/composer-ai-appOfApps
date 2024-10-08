@@ -46,6 +46,10 @@ spec:
             - name: QUARKUS_MONGODB_CREDENTIALS_USERNAME
               value: {{ .Values.mongodb.username }}
             - name: QUARKUS_MONGODB_CREDENTIALS_PASSWORD
+            - name: GOOGLE_CLIENT_ID
+              value: {{ .Values.GOOGLE_CLIENT_ID | default "CLIENT_ID" }}
+            - name: GOOGLE_CLIENT_SECRET
+              value: {{ .Values.GOOGLE_CLIENT_SECRET | default "CLIENT_SECRET" }}
               valueFrom:
                 secretKeyRef:
                   name: {{ tpl .Values.mongodb.passwordSecret . }}
