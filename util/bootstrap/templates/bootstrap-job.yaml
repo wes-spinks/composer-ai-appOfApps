@@ -1,0 +1,23 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: job-boostrap-env-
+spec:
+  template:
+    spec:
+      volumes:
+        - name: scripts-volume
+          configMap:
+            name: composer-ai-scripts
+      containers:
+        - name: job-bootstrap-env
+          image: registry.redhat.io/openshift4/ose-cli
+          command: ["/bin/sh", "/scripts/bootstrap.sh"]
+          volumeMounts:
+            - name: scripts-volume
+              mountPath: /scripts
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 90
+      serviceAccount: composer-job-runner
+      serviceAccountName: composer-job-runner
