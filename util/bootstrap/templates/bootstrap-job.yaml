@@ -3,6 +3,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   generateName: job-boostrap-env-
+  name: job-boostrap-env
 spec:
   template:
     spec:
