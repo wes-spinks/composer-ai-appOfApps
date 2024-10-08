@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: {{ .name }}-{{ .namespace | default $.Values.application.defaultNamespace }}
-  label:
+  labels:
     app.kubernetes.io/name: {{ .name }}
     app.kubernetes.io/instance-of: {{ $.Values.name }}
     app.kubernetes.io/managed-by: ArgoCD
