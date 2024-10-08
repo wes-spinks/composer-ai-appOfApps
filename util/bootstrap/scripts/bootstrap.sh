@@ -7,5 +7,5 @@ else
   # Create the secret
   oc create secret generic weaviate-api-key-secret \
     --from-literal=AUTHENTICATION_APIKEY_ALLOWED_KEYS="$(openssl rand -base64 32)"
-  echo "Secret 'weaviate-api-key-secret' created
+  echo "Secret 'weaviate-api-key-secret' created"
 fi
