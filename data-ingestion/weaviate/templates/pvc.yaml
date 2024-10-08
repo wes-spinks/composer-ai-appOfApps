@@ -8,10 +8,10 @@ metadata:
   finalizers:
     - kubernetes.io/pvc-protection
 spec:
-  storageClassName: gp3
+  storageClassName: {{ .Values.storageClass.name }}
   resources:
     requests:
-      storage: 40Gi
+      storage: {{ .Values.storageClass.size }}  
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
