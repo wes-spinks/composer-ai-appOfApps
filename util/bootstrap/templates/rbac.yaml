@@ -9,7 +9,7 @@ kind: Role
 metadata:
   name: composer-job-runner
 rules:
-  apiGroups:
+- apiGroups:
   - ""
   resources: 
     - "secrets"
