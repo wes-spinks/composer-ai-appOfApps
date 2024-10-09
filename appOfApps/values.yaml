@@ -20,8 +20,8 @@ defaultValuesFile: values.yaml
 
 # Applications to be deployed
 applications:
-  - name: ollama-model
-    path: data-ingestion/ollama
+  - name: vllm-model
+    path: data-ingestion/vllm
   - name: weaviate
     path: data-ingestion/weaviate
   - name: kfp-pipeline
