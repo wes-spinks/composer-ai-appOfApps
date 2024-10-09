@@ -37,7 +37,7 @@ spec:
                 secretKeyRef:
                   name: weaviate-api-key-secret
                   key: AUTHENTICATION_APIKEY_ALLOWED_KEYS
-            - name: QUARKUS_MONGODB_CONNECTION_STRING
+            - name: QUARKUS_MONGODB_CONNECTION_STRINGR
               value: mongodb://mongodb-{{ .Release.Namespace }}:27017
             - name: QUARKUS_MONGODB_DATABASE
               value: composer
