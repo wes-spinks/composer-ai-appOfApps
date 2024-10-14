@@ -9,3 +9,10 @@ mongodb:
   # But that can cause issues on redeploy as it creates a new password in the kube secret but the db still has the old one 
   auth:
     rootPassword: P@ssw0rd
+  
+  labels:
+    app: chatbot-state
+    app.kubernetes.io/component: chatbot-state
+    app.kubernetes.io/instance: chatbot-state
+    app.kubernetes.io/name: chatbot-state
+    app.kubernetes.io/part-of: chatbot-application

@@ -1,0 +1,26 @@
+labels:
+  app: chatbot-ui
+  app.kubernetes.io/component: chatbot-ui
+  app.kubernetes.io/instance: chatbot-ui
+  app.kubernetes.io/name: chatbot-ui
+  app.kubernetes.io/part-of: chatbot-application
+
+name: chatbot-ui
+
+image:  quay.io/redhat-saia/chatbot-ui-patternfly:latest
+imagePullPolicy: Always
+
+serviceMesh:
+  enabled: false
+
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 2Gi
+  requests:
+    cpu: 250m
+    memory: 1Gi
+
+backend:
+  url: https://quarkus-llm-router-rhsaia-prod.{{ .Values.clusterDomain }}/assistant/chat/streaming"

@@ -3,7 +3,7 @@ labels:
   app.kubernetes.io/component: quarkus-llm-router
   app.kubernetes.io/instance: quarkus-llm-router
   app.kubernetes.io/name: quarkus-llm-router
-  app.kubernetes.io/part-of: chatbot-ui
+  app.kubernetes.io/part-of: chatbot-application
 
 name: quarkus-llm-router
 
