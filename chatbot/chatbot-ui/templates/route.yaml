@@ -4,8 +4,6 @@ metadata:
   name: {{ .Values.name }}
   labels:
     {{- include "labels" . | nindent 4 }}
-  annotations:
-    haproxy.router.openshift.io/timeout: {{ .Values.route.timeout }}    
 spec:
   to:
     kind: Service
