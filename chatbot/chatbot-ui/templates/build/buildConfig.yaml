@@ -11,8 +11,6 @@ spec:
       uri: 'https://github.com/redhat-composer-ai/chatbot-ui.git'
     contextDir: /
   strategy:
-    # dockerStrategy:
-    #   dockerfilePath: Containerfile
     sourceStrategy:
       from:
         kind: DockerImage
@@ -20,7 +18,7 @@ spec:
       env:
         - name: REACT_APP_ROUTER_URL
           value: >-
-            {{ .Values.backend.url }}
+            {{ tpl .Values.backend.url $ }}
   output:
     to:
       kind: ImageStreamTag
