@@ -1,0 +1,27 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: chatbot-ui-buildconfig
+spec:
+  triggers:
+  - type: ConfigChange
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/redhat-composer-ai/chatbot-ui.git'
+    contextDir: /
+  strategy:
+    # dockerStrategy:
+    #   dockerfilePath: Containerfile
+    sourceStrategy:
+      from:
+        kind: DockerImage
+        name: registry.access.redhat.com/ubi9/nodejs-20-minimal
+      env:
+        - name: REACT_APP_ROUTER_URL
+          value: >-
+            https://quarkus-llm-router-rhsaia-prod.apps.cluster-c4gwj.c4gwj.sandbox1157.opentlc.com/assistant/chat/streaming
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'chatbot-ui-patternfly:latest'
