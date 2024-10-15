@@ -20,7 +20,7 @@ spec:
       env:
         - name: REACT_APP_ROUTER_URL
           value: >-
-            https://quarkus-llm-router-rhsaia-prod.apps.cluster-c4gwj.c4gwj.sandbox1157.opentlc.com/assistant/chat/streaming
+            {{ .Values.backend.url }}
   output:
     to:
       kind: ImageStreamTag
