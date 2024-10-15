@@ -24,4 +24,4 @@ resources:
     memory: 1Gi
 
 backend:
-  url: https://quarkus-llm-router-rhsaia-prod.{{ .Values.clusterDomain }}/assistant/chat/streaming"
+  url: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/assistant/chat/streaming"
