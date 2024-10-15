@@ -29,7 +29,8 @@ spec:
           resources:
             {{- .Values.resources | toYaml | nindent 12 }}
           env:
-            REACT_APP_ROUTER_URL: {{ tpl .Values.backend.url $ }}
+            - name: REACT_APP_ROUTER_URL
+              value: {{ tpl .Values.backend.url $ }}
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
   strategy:
