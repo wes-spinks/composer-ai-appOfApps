@@ -33,6 +33,8 @@ spec:
           env:
             - name: REACT_APP_ROUTER_URL
               value: {{ tpl .Values.backend.url $ }}
+            - name: REACT_APP_INFO_URL
+              value: {{ tpl .Values.backend.infoUrl $ }}
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
   strategy:

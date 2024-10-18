@@ -4,7 +4,7 @@ metadata:
   name: chatbot-ui-buildconfig
 spec:
   triggers:
-  - type: ConfigChange
+    - type: ConfigChange
   source:
     type: Git
     git:
@@ -19,6 +19,9 @@ spec:
         - name: REACT_APP_ROUTER_URL
           value: >-
             {{ tpl .Values.backend.url $ }}
+        - name: REACT_APP_INFO_URL
+          value: >-
+            {{ tpl .Values.backend.infoUrl $ }}
   output:
     to:
       kind: ImageStreamTag
