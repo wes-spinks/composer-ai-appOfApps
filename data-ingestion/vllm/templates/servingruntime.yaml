@@ -33,6 +33,9 @@ spec:
         - "{{ .Values.runtime.gpuMemoryUtilization }}"
         - --max-seq_len-to-capture
         - "{{ .Values.runtime.maxSeqLength }}"
+      env:
+        - name: VLLM_LOGGING_LEVEL
+          value: {{ .Values.runtime.logLevel | default "INFO" }}
       image: {{ .Values.runtime.image }}
       name: kserve-container
       ports:

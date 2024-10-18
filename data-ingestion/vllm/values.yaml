@@ -33,6 +33,7 @@ storage:
     enabled: false # IMPORTANT: this creates a secret and SHOULD NOT BE USED other than for demo purposes, any keys created for this should be short lived and very limited readonly access to the specific bucket being used
 
 runtime:
+  logLevel: DEBUG
   # max_content_length: Needs to be changed respective to the model run
   # Granite-8B-Instruct = 4096
   # Mistral-7B = 32768
