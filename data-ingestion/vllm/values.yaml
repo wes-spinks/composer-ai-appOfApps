@@ -42,4 +42,5 @@ runtime:
   maxSeqLength: 8192
   gpuMemoryUtilization: 1
   servedModelName: Mistral-7B-Instruct-v0.3
-  image: quay.io/rh-aiservices-bu/vllm-openai-ubi9:0.4.2
+  image: quay.io/modh/vllm:rhoai-2.10-cuda
+  # image: quay.io/rh-aiservices-bu/vllm-openai-ubi9:0.4.2

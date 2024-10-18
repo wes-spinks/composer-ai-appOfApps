@@ -11,6 +11,8 @@ metadata:
     opendatahub.io/dashboard: "true"
   name: {{ .Values.servingModel.name }}
 spec:
+  annotations:
+    serving.knative.dev/progress-deadline: {{ .Values.runtime.timeout | default "30m" }}
   builtInAdapter:
     modelLoadingTimeoutMillis: 90000
   containers:

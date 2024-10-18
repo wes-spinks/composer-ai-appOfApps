@@ -50,6 +50,10 @@ spec:
                 secretKeyRef:
                   name: {{ tpl .Values.mongodb.passwordSecret . }}
                   key: {{ .Values.mongodb.passwordKey }}
+            - name: VLLM_DEFAULT_URL
+              value: https://vllm-predictor-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/v1
+            - name: VLLM_DEFAULT_APIKEY
+              value: abc123
             - name: GOOGLE_CLIENT_ID
               value: {{ .Values.GOOGLE_CLIENT_ID | default "CLIENT_ID" }}
             - name: GOOGLE_CLIENT_SECRET
