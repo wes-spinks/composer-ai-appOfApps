@@ -20,11 +20,11 @@ servingModel:
     limits:
       cpu: '4'
       memory: 20Gi
-      nvidia.com/gpu: '2'
+      nvidia.com/gpu: '1'
     requests:
       cpu: '2'
       memory: 16Gi
-      nvidia.com/gpu: '2'
+      nvidia.com/gpu: '1'
 
 storage:
   name: 'aws-connection-o-fish-bucket' # Name of the secret holding the storage information
