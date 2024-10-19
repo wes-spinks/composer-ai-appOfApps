@@ -23,4 +23,4 @@ resources:
 
 backend:
   url: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/assistant/chat/streaming
-  infoUrl: https://quarkus-llm-router{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant
+  infoUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant
