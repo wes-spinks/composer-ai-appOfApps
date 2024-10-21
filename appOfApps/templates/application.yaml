@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance-of: {{ $.Values.name }}
     app.kubernetes.io/managed-by: ArgoCD
     tenant: {{ $.Values.name }}
-  namespace: {{ .namespace | default $.Values.gitops.namespace }}
+  namespace: {{ default $.Values.gitops.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "{{ .syncWave | default 0 }}"
 spec:
