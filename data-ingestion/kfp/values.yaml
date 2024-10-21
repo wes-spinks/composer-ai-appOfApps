@@ -6,7 +6,7 @@ labels:
   app.kubernetes.io/part-of: kfp-pipelines
 
 storage:
-  secretName: dspa-storage-config
+  secretName: dashboard-dspa-secret
   accessKey: AWS_ACCESS_KEY_ID
   secretKey: AWS_SECRET_ACCESS_KEY
   region: 'us-east-1'
