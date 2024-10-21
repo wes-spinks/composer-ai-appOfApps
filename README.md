@@ -34,3 +34,18 @@ data:
   aws-connection-o-fish-bucket: xxxxxx
 type: Opaque
 ```
+
+### Create DSPA Storage Config (for some reason look into)
+
+> Note: A bunch of other info is hardcoded into the code itself, it should probably all be read from a secret
+
+```yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  name: dspa-storage-config
+data:
+  AWS_ACCESS_KEY_ID: xxxx
+  AWS_SECRET_ACCESS_KEY: xxxxx
+type: Opaque  
+```

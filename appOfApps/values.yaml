@@ -1,7 +1,7 @@
 name: composer-ai
 # Default Namespace for the application components
 application:
-  defaultNamespace: composer-ai
+  defaultNamespace: composer-ai-app
 
 # Git Repository for the ArgoCD Application
 repo:
