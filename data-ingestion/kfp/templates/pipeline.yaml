@@ -6,13 +6,17 @@ spec:
   workspaces:
     - name: source
   params:
-    - default: 'https://gitlab.consulting.redhat.com/redprojectai/infrastructure/data-science-deploy.git'
+    - default: 'https://github.com/redhat-composer-ai/data-ingestion.git'
       description: Repo URL
       name: GIT_URL
       type: string
     - default: 'ingestion-pipeline.py'
       description: The location of the python script containing the kfp pipeline
       name: KFP_SCRIPT
+      type: string
+    - default: '/kfp/product-documentation-ingestion'
+      description: The direcotry of the KFP_SCRIPT
+      name: PATH_CONTEXT
       type: string
     - default: main
       name: GIT_REVISION
@@ -46,7 +50,7 @@ spec:
         - name: VERSION
           value: $(params.PYTHON_IMAGE)
         - name: PATH_CONTEXT
-          value: ./kfp/product-documentation-ingestion
+          value: $(params.PATH_CONTEXT)
         - name: IMAGE
           value: $(params.TARGET_IMAGE)
       runAfter:
