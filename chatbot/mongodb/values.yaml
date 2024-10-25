@@ -20,4 +20,4 @@ mongodb:
 global:
   compatibility:
     openshift:
-      adaptSecurityContext: true
+      adaptSecurityContext: force
