@@ -16,3 +16,8 @@ mongodb:
     app.kubernetes.io/instance: chatbot-state
     app.kubernetes.io/name: chatbot-state
     app.kubernetes.io/part-of: chatbot-application
+
+global:
+  compatibility:
+    openshift:
+      adaptSecurityContext: true
