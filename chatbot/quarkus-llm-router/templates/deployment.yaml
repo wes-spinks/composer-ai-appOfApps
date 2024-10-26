@@ -60,6 +60,8 @@ spec:
               value: {{ .Values.GOOGLE_CLIENT_ID | default "CLIENT_ID" }}
             - name: GOOGLE_CLIENT_SECRET
               value: {{ .Values.GOOGLE_CLIENT_SECRET | default "CLIENT_SECRET" }}
+            - name: QUARKUS_LOG_LEVEL
+              value: DEBUG
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       {{- with .Values.tolerations }}
