@@ -12,3 +12,11 @@ storage:
   region: 'us-east-1'
   bucket: 'rhsaia-model-storage-e84c268a-da64-4ddd'
   host: 's3.us-east-1.amazonaws.com'
+
+
+defaults:
+  git:
+    url: 'https://github.com/redhat-composer-ai/data-ingestion'
+    revision: 'main'
+    path: '/kfp/product-documentation-ingestion'
+    script: 'ingestion-pipeline.py'
