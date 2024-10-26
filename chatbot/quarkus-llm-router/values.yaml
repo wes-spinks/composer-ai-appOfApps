@@ -7,7 +7,7 @@ labels:
 
 name: quarkus-llm-router
 
-image:  quay.io/redhat-saia/quarkus-routing-service:v2.0.0
+image:  quay.io/redhat-saia/quarkus-routing-service:v2.0.1
 imagePullPolicy: Always
 
 serviceMesh:
