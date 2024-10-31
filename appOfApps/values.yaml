@@ -28,7 +28,7 @@ applications:
     path: data-ingestion/kfp
   - name: quarkus-llm-router
     path: chatbot/quarkus-llm-router
-  - name: chtabot-ui
+  - name: chatbot-ui
     path: chatbot/chatbot-ui
   - name: mongodb
     path: chatbot/mongodb
