@@ -18,5 +18,5 @@ defaults:
   git:
     url: 'https://github.com/redhat-composer-ai/data-ingestion'
     revision: 'main'
-    path: '/kfp/product-documentation-ingestion'
+    path: 'kfp/redhat-product-documentation-ingestor'
     script: 'ingestion-pipeline.py'
