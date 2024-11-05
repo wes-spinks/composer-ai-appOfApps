@@ -37,4 +37,3 @@ runtime:
   gpuMemoryUtilization: 1
   # 2.14 RHOAI with vLLM v0.5.5
   image: 'quay.io/modh/vllm@sha256:97b91f9bd71202f5de8d379cfb61baec887b47f836a2ff8b158c946196de5660'
-
