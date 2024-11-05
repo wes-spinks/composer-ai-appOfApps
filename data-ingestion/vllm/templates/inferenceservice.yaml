@@ -21,6 +21,6 @@ spec:
       runtime: {{ include "vllm.fullname" . }}
       storageUri: {{ .Values.runtime.storageUri }}
       {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+    tolerations:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
