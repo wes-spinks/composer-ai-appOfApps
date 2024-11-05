@@ -25,7 +25,7 @@ servingModel:
       nvidia.com/gpu: '1'
 
 runtime:
-  storageUri: 'oci://quay.io/redhat-ai-services/modelcar-catalog:granite-3.0-8b-instruct'
+  storageUri: 'oci://quay.io/redhat-ai-services/modelcar-catalog:mistral-7b-instruct-v0.3'
   logLevel: DEBUG
   # max_content_length: Needs to be changed respective to the model run
   # Granite-8B-Instruct = 4096
