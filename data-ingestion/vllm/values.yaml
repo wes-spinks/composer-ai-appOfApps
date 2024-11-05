@@ -1,7 +1,7 @@
 # -- String to partially override fullname template (will maintain the release name)
 nameOverride: ""
 # -- String to fully override fullname template
-fullnameOverride: ""
+fullnameOverride: "vllm"
 
 minReplicas: 1
 
