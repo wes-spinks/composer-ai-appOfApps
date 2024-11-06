@@ -2,6 +2,8 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   name: chatbot-ui-buildconfig
+  annotations:
+    argocd.argoproj.io/sync-wave: "-5"
 spec:
   triggers:
   - type: ConfigChange
