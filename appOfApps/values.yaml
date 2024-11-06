@@ -30,6 +30,12 @@ applications:
     path: chatbot/quarkus-llm-router
   - name: chatbot-ui
     path: chatbot/chatbot-ui
+    # Add ignoreDifferences to allow deployment to be updated by ImageStream
+    ignoreDifferences:
+      - group: apps
+        kind: Deployment
+        jsonPointers:
+          - /spec/template/spec/containers/0/image
   - name: mongodb
     path: chatbot/mongodb
   - name: bootstrap
