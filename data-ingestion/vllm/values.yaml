@@ -11,9 +11,6 @@ tolerations:
     operator: Equal
 
 servingModel:
-  name: vllm
-  model:
-    path: /mnt/models
   resources:
     limits:
       cpu: '4'
