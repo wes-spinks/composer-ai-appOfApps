@@ -4,10 +4,13 @@ metadata:
   name: dspa
 spec:
   apiServer:
+    caBundleFileMountPath: ""
     stripEOF: true
     dbConfigConMaxLifetimeSec: 120
     applyTektonCustomResource: true
+    caBundleFileName: ""
     deploy: true
+    artifactSignedURLExpirySeconds: 60
     enableSamplePipeline: false
     autoUpdatePipelineDefaultVersion: true
     archiveLogs: false
@@ -25,22 +28,15 @@ spec:
       username: mlpipeline
   dspVersion: v2
   objectStorage:
-    disableHealthCheck: false
-    enableExternalRoute: false
-    externalStorage:
-      basePath: ''
-      bucket: '{{ .Values.storage.bucket }}'
-      host: '{{ .Values.storage.host }}'
-      port: ''
-      region: '{{ .Values.storage.region }}'
-      s3CredentialsSecret:
-        accessKey: '{{ .Values.storage.accessKey }}'
-        secretKey: '{{ .Values.storage.secretKey }}'
-        secretName: '{{ .Values.storage.secretName }}'
-      scheme: https
+    minio:
+      bucket: data-science-pipelines
+      deploy: true
+      image: {{ .Values.dspa.minio.image }}
+      pvcSize: {{ .Values.dspa.minio.pvcSize }}
   persistenceAgent:
     deploy: true
     numWorkers: 2
+  podToPodTLS: true
   scheduledWorkflow:
     cronScheduleTimezone: UTC
     deploy: true

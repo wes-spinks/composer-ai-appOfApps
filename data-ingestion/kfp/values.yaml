@@ -5,14 +5,10 @@ labels:
   app.kubernetes.io/name: kfp-pipelines
   app.kubernetes.io/part-of: kfp-pipelines
 
-storage:
-  secretName: dashboard-dspa-secret
-  accessKey: AWS_ACCESS_KEY_ID
-  secretKey: AWS_SECRET_ACCESS_KEY
-  region: 'us-east-1'
-  bucket: 'rhsaia-model-storage-e84c268a-da64-4ddd'
-  host: 's3.us-east-1.amazonaws.com'
-
+dspa:
+  minio:
+    image: quay.io/minio/minio:RELEASE.2024-10-02T17-50-41Z
+    pvcSize: 10Gi
 
 defaults:
   git:
