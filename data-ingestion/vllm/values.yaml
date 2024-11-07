@@ -25,13 +25,5 @@ runtime:
   storageUri: 'oci://quay.io/redhat-ai-services/modelcar-catalog:granite-3.0-8b-instruct'
   timeout: 45m
   logLevel: DEBUG
-  # max_content_length: Needs to be changed respective to the model run
-  # Granite-8B-Instruct = 4096
-  # Mistral-7B = 32768
-  # Gemma-2B = 8192
-  # Llama3-8B = 8192
-  maxModelLength: 15344
-  maxSeqLength: 8192
-  gpuMemoryUtilization: 1
   # 2.14 RHOAI with vLLM v0.5.5
   image: 'quay.io/modh/vllm@sha256:97b91f9bd71202f5de8d379cfb61baec887b47f836a2ff8b158c946196de5660'
