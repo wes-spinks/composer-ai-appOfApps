@@ -2,14 +2,10 @@ apiVersion: serving.kserve.io/v1beta1
 kind: InferenceService
 metadata:
   annotations:
-    openshift.io/display-name: {{ .Values.runtime.servedModelName }}
-    # serving.kserve.io/enable-prometheus-scraping: 'true'
     serving.knative.openshift.io/enablePassthrough: 'true'
     sidecar.istio.io/inject: 'true'
     sidecar.istio.io/rewriteAppHTTPProbers: 'true'
-  name: {{ .Values.servingModel.name }}
-  finalizers:
-    - inferenceservice.finalizers
+  name: {{ include "vllm.fullname" . }}
   labels:
     opendatahub.io/dashboard: 'true'
 spec:
@@ -18,20 +14,13 @@ spec:
     minReplicas: {{ .Values.minReplicas }}
     model:
       modelFormat:
-        name: pytorch
+        name: vLLM
       name: ''
       resources: 
         {{- .Values.servingModel.resources | toYaml | nindent 8 }}
-      runtime: {{ .Values.servingModel.name }}
-      storage:
-        key: {{ .Values.storage.name }}
-        path: {{ .Values.storage.path }}    
+      runtime: {{ include "vllm.fullname" . }}
+      storageUri: {{ .Values.runtime.storageUri }}
       {{- with .Values.tolerations }}
     tolerations:
-      - key: {{ .key }}
-        operator: {{ .operator | default "Equal" }}
-        {{- if .value }}
-        value: {{ .value }}
-        {{- end }}
-        effect: {{ .effect | default "NoSchedule" }}
+      {{- toYaml . | nindent 6 }}
     {{- end }}
