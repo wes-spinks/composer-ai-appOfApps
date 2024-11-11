@@ -1,0 +1,80 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: create-content-retriever
+spec:
+  params:
+    - name: contentRetrieverType
+      type: string
+      description: The type of content retriever to create, currently only "weaviate" is supported
+      default: "weaviate"
+    - name: textKey
+      type: string
+      description: The key in the content retriever that contains the text
+      default: "source"
+    - name: metadata
+      type: string
+      description: The keys in the content retriever that contain metadata, comma-separated
+    - name: index
+      type: string
+      description: The index to use in the content retriever
+    - name: embeddingType
+      type: string
+      description: The type of embedding to use
+    - name: name
+      type: string
+      description: The name of the connection
+    - name: description
+      type: string
+      description: The description of the connection
+  steps:
+    - name: curl-request
+      image: registry.redhat.io/openshift4/ose-tools-rhel9:latest
+      env:
+        - name: CONTENT_RETRIEVER_TYPE
+          value: "$(params.contentRetrieverType)"
+        - name: TEXT_KEY
+          value: "$(params.textKey)"
+        - name: METADATA
+          value: "$(params.metadata)"
+        - name: INDEX
+          value: "$(params.index)"
+        - name: EMBEDDING_TYPE
+          value: "$(params.embeddingType)"
+        - name: NAME
+          value: "$(params.name)"
+        - name: DESCRIPTION
+          value: "$(params.description)"
+      script: |
+        set -e
+        # Convert comma-separated metadata string to JSON array
+        METADATA_JSON="[$(echo $METADATA)]"
+
+        curl_command='curl -X POST "{{ .Values.name }}:8080/admin/assistant/retrieverConnection" \
+        -H "Content-Type: application/json" \
+        -d '\''{
+          "baseRetrieverRequest": {
+            "contentRetrieverType": "'"$CONTENT_RETRIEVER_TYPE"'",
+            "textKey": "'"$TEXT_KEY"'",
+            "metadataFields": '"$METADATA_JSON"', 
+            "index": "'"$INDEX"'"
+          },
+          "embeddingType": "'"$EMBEDDING_TYPE"'",
+          "name": "'"$NAME"'",
+          "description": "'"$DESCRIPTION"'"
+        }'\'''
+        
+        echo "$curl_command"
+
+        RESPONSE=$(eval "$curl_command")
+        
+        echo "Response: $RESPONSE"
+
+        # Extract the retriever connection ID from the response
+        RETRIEVER_CONNECTION_ID=$(echo $RESPONSE | jq -r '.id' | tr -d '\n')
+
+        # Write the result to the file
+        echo $RETRIEVER_CONNECTION_ID > $(results.retrieverConnectionId.path)
+  results:
+    - name: retrieverConnectionId
+      description: The id of the retriever connection

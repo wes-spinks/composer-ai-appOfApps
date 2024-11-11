@@ -1,0 +1,74 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: create-assistant-pipeline
+spec:
+  params:
+    - name: assistant_name
+      type: string
+      description: The name of the assistant
+      default: "Example Assistant"
+    - name: assistant_display_name
+      type: string
+      description: The display name of the assistant
+      default: "Example Assistant"
+    - name: assistant_description
+      type: string
+      description: The description of the assistant
+      default: "Example of an assistant"
+    - name: llm_name
+      type: string
+      description: The name of the LLM connection
+      default: "Example LLM"
+    - name: llm_description
+      type: string
+      description: The description of the LLM connection
+      default: "Example of a LLM connection"
+    - name: modelType
+      type: string
+      description: The type of model to create, currently only "openai" is supported
+      default: "openai"
+    - name: url
+      type: string
+      description: The url of the model, make sure to include relevant versioning path
+      default: "https://vllm-predictor-composer-ai-app.apps.cluster-c4gwj.c4gwj.sandbox1157.opentlc.com/v1"
+    - name: apiKey
+      type: string
+      description: The api key of the model (if required) can leave it as default if not required
+      default: "abc123"
+    - name: modelName
+      type: string
+      description: The name of the model
+      default: "davinci-codex"
+  tasks:
+    - name: create-llm-connection
+      taskRef:
+        name: create-llm-connection
+      params:
+        - name: name
+          value: "$(params.llm_name)"
+        - name: description
+          value: "$(params.llm_description)"
+        - name: modelType
+          value: "$(params.modelType)"
+        - name: url
+          value: "https://api.openai.com/v1/engines/davinci-codex"
+        - name: apiKey
+          value: "$(params.apiKey)"
+        - name: modelName
+          value: "$(params.modelName)"
+    - name: create-assistant
+      taskRef:
+        name: create-assistant
+      params:
+        - name: name
+          value: "$(params.assistant_name)"
+        - name: displayName
+          value: "$(params.assistant_display_name)"
+        - name: description
+          value: "$(params.assistant_description)"
+        - name: llmConnectionId
+          value: "$(tasks.create-llm-connection.results.llmConnectionId)"
+      runAfter:
+        - create-llm-connection
+        
