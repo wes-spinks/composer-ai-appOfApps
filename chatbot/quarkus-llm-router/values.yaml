@@ -25,6 +25,9 @@ route:
   # The timeout needs to be pretty high if there are no GPUs available
   timeout: 200s
 
+# Uncomment the following to set log level to DEBUG
+# logLevel: DEBUG
+
 resources:
   limits:
     cpu: '2'

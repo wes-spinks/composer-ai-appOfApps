@@ -98,7 +98,7 @@ spec:
         - name: modelType
           value: "$(params.modelType)"
         - name: url
-          value: "https://api.openai.com/v1/engines/davinci-codex"
+          value: "$(params.url)"
         - name: apiKey
           value: "$(params.apiKey)"
         - name: modelName
