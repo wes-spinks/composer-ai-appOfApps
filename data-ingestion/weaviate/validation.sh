@@ -5,15 +5,10 @@ while getopts "n:" opt; do
   esac
 done
 
-if [ -z "$NAMESPACE" ]; then
-  NAMESPACE=composer-ai-app
-fi
-
 # Rest of the code...
 
-
 if [ -z "$NAMESPACE" ]; then
-  NAMESPACE=composer-ai-app
+  NAMESPACE=composer-ai-apps
 fi
 
 # Port forward the weaviate app

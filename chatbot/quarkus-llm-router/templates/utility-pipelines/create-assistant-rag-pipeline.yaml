@@ -1,0 +1,123 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: create-assistant-rag-pipeline
+spec:
+  params:
+    - name: assistant_name
+      type: string
+      description: The name of the assistant
+      default: "Example Assistant"
+    - name: assistant_display_name
+      type: string
+      description: The display name of the assistant
+      default: "Example Assistant"
+    - name: assistant_description
+      type: string
+      description: The description of the assistant
+      default: "Example of an assistant"
+    - name: rag_name
+      type: string
+      description: The name of the Rag connection
+      default: "Example RAG"
+    - name: rag_description
+      type: string
+      description: The description of the Retreiver Connection
+      default: "Example of a rag connection"
+    - name: contentRetrieverType
+      type: string
+      description: The type of content retriever to create, currently only "weaviate" is supported
+      default: "weaviate"
+    - name: textKey
+      type: string
+      description: The key in the content retriever that contains the text
+      default: "source"
+    - name: metadata
+      type: string
+      description: The keys in the content retriever that contain metadata, comma-separated
+      default: "\"source\",\"page_number\",\"title\""
+    - name: index
+      type: string
+      description: The index to use in the content retriever
+      default: "my_custom_index"
+    - name: embeddingType
+      type: string
+      description: The type of embedding to use
+      default: "nomic"
+    - name: llm_name
+      type: string
+      description: The name of the LLM connection
+      default: "Example LLM"
+    - name: llm_description
+      type: string
+      description: The description of the LLM connection
+      default: "Example of a LLM connection"
+    - name: modelType
+      type: string
+      description: The type of model to create, currently only "openai" is supported
+      default: "openai"
+    - name: url
+      type: string
+      description: The url of the model, make sure to include relevant versioning path
+      default: "https://vllm-predictor-composer-ai-app.apps.cluster-c4gwj.c4gwj.sandbox1157.opentlc.com/v1"
+    - name: apiKey
+      type: string
+      description: The api key of the model (if required) can leave it as default if not required
+      default: "abc123"
+    - name: modelName
+      type: string
+      description: The name of the model
+      default: "davinci-codex"
+  tasks:
+    - name: create-content-retriever
+      taskRef:
+        name: create-content-retriever
+      params:
+        - name: contentRetrieverType
+          value: $(params.contentRetrieverType)
+        - name: textKey
+          value: $(params.textKey)
+        - name: metadata
+          value: $(params.metadata)
+        - name: index
+          value: $(params.index)
+        - name: embeddingType
+          value: $(params.embeddingType)
+        - name: name
+          value: $(params.rag_name)
+        - name: description
+          value: $(params.rag_description)
+    - name: create-llm-connection
+      taskRef:
+        name: create-llm-connection
+      params:
+        - name: name
+          value: "$(params.llm_name)"
+        - name: description
+          value: "$(params.llm_description)"
+        - name: modelType
+          value: "$(params.modelType)"
+        - name: url
+          value: "$(params.url)"
+        - name: apiKey
+          value: "$(params.apiKey)"
+        - name: modelName
+          value: "$(params.modelName)"
+    - name: create-assistant
+      taskRef:
+        name: create-assistant-rag
+      params:
+        - name: name
+          value: "$(params.assistant_name)"
+        - name: displayName
+          value: "$(params.assistant_display_name)"
+        - name: description
+          value: "$(params.assistant_description)"
+        - name: llmConnectionId
+          value: "$(tasks.create-llm-connection.results.llmConnectionId)"
+        - name: retrieverConnectionId
+          value: "$(tasks.create-content-retriever.results.retrieverConnectionId)"
+      runAfter:
+        - create-content-retriever
+        - create-llm-connection
+        
