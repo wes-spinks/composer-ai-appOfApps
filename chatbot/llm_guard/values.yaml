@@ -7,7 +7,7 @@ labels:
 
 name: llm_guard
 
-image: 'quay.io/wspinks0/llm_guard_kitpg:dev'
+image: 'quay.io/wspinks0/llm_guard_kitpg:main'
 imagePullPolicy: Always
 
 resources:
