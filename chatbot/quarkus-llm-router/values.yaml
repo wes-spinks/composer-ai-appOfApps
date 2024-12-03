@@ -21,6 +21,11 @@ mongodb:
   passwordSecret: mongodb-{{ .Release.Namespace }}
   passwordKey: mongodb-root-password
 
+openAIRuntime:
+  url: https://vllm-predictor-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/v1
+  apikey: abc123
+  modelname: vllm
+
 route:
   # The timeout needs to be pretty high if there are no GPUs available
   timeout: 200s

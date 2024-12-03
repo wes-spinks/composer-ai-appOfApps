@@ -51,11 +51,11 @@ spec:
                   name: {{ tpl .Values.mongodb.passwordSecret . }}
                   key: {{ .Values.mongodb.passwordKey }}
             - name: OPENAI_DEFAULT_URL
-              value: https://vllm-predictor-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/v1
+              value: {{ tpl .Values.openAIRuntime.url $ }}
             - name: OPENAI_DEFAULT_APIKEY
-              value: abc123
+              value: {{ .Values.openAIRuntime.apikey }}
             - name: OPENAI_DEFAULT_MODELNAME
-              value: vllm
+              value: {{ .Values.openAIRuntime.modelname }}
             - name: GOOGLE_CLIENT_ID
               value: {{ .Values.GOOGLE_CLIENT_ID | default "CLIENT_ID" }}
             - name: GOOGLE_CLIENT_SECRET
