@@ -2,13 +2,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ .name }}-{{ .namespace | default $.Values.application.defaultNamespace }}
+  name: {{ .name }}-{{ $.Values.namespacePrefix }}{{ .namespaceSuffix }}
   labels:
     app.kubernetes.io/name: {{ .name }}
     app.kubernetes.io/instance-of: {{ $.Values.name }}
     app.kubernetes.io/managed-by: ArgoCD
     tenant: {{ $.Values.name }}
-  namespace: {{ default $.Values.gitops.namespace }}
+  namespace: {{ $.Values.namespacePrefix }}{{ $.Values.gitops.namespaceSuffix }}
   annotations:
     argocd.argoproj.io/sync-wave: "{{ .syncWave | default 0 }}"
 spec:
@@ -29,7 +29,7 @@ spec:
         {{- end }}
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .namespace | default $.Values.application.defaultNamespace }}
+    namespace: {{ $.Values.namespacePrefix }}{{ .namespaceSuffix }}
   syncPolicy:
     automated: 
       prune: true
