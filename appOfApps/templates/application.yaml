@@ -1,4 +1,8 @@
 {{- range .Values.applications }}
+# allow applications to be set to enabled: false
+# .enabled | default  true always evaluates to true
+# reference: https://broersma.dev/til-helm-boolean-functions-and-falsy-ness/
+{{- if list nil true | has .enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -39,4 +43,5 @@ spec:
     {{- toYaml .ignoreDifferences | nindent 4 }}
   {{- end }}
 ---
+{{- end }}
 {{- end }}
