@@ -24,6 +24,12 @@ spec:
         - name: REACT_APP_INFO_URL
           value: >-
             {{ tpl .Values.backend.infoUrl $ }}
+        - name: REACT_APP_RETRIEVER_URL
+          value: >-
+            {{ tpl .Values.backend.retrieverUrl $ }}
+        - name: REACT_APP_LLM_URL
+          value: >-
+            {{ tpl .Values.backend.llmUrl $ }}
   output:
     to:
       kind: ImageStreamTag
