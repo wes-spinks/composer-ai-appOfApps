@@ -40,3 +40,5 @@ applications:
     path: chatbot/mongodb
   - name: bootstrap
     path: util/bootstrap
+  - name: llm-guard
+    path: chatbot/llm_guard
