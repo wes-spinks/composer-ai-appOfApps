@@ -25,6 +25,10 @@ applications:
   - name: weaviate
     path: data-ingestion/weaviate
     namespaceSuffix: apps
+    enabled: false
+  - name: elasticsearch
+    path: data-ingestion/elasticsearch
+    namespaceSuffix: apps
   - name: kfp-pipeline
     path: data-ingestion/kfp
     namespaceSuffix: apps
