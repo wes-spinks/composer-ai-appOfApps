@@ -75,9 +75,9 @@ spec:
           - name: PROMETHEUS_MONITORING_ENABLED
             value: 'false'
           - name: CLUSTER_GOSSIP_BIND_PORT
-            value: '8081'
-          - name: CLUSTER_DATA_BIND_PORT
             value: '8080'
+          - name: CLUSTER_DATA_BIND_PORT
+            value: '8081'
           - name: RAFT_JOIN
             value: 'weaviate-vector-db'
           - name: RAFT_BOOTSTRAP_EXPECT
