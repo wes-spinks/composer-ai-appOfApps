@@ -67,15 +67,15 @@ spec:
           - name: RAFT_ENABLE_FQDN_RESOLVER
             value: 'true'
           - name: RAFT_FQDN_RESOLVER_TLD
-            value: '.cia-ocpai--runtime-int.svc.cluster.local'
+            value: 'cia-ocpai--runtime-int.svc.cluster.local'
           - name: REPLICATION_MINIMUM_FACTOR
             value: '1'
           - name: PROMETHEUS_MONITORING_ENABLED
             value: 'false'
           - name: CLUSTER_GOSSIP_BIND_PORT
-            value: '7100'
+            value: '50051'
           - name: CLUSTER_DATA_BIND_PORT
-            value: '7101'
+            value: '8080'
           - name: RAFT_JOIN
             value: 'weaviate-vector-db'
           - name: RAFT_BOOTSTRAP_EXPECT
