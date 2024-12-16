@@ -10,7 +10,7 @@ spec:
       description: Repo URL
       name: GIT_URL
       type: string
-    - default: '{{ .Values.defaults.git.script }}'
+    - default: '{{ .Values.defaults.git.path }}'
       description: The location of the python script containing the kfp pipeline
       name: KFP_SCRIPT
       type: string

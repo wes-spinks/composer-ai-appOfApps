@@ -1,26 +1,51 @@
-# Composer AI Gitops
+# App Of Apps
 
-## Description
+App of Apps for installing v2 of the ChatBot Application
 
-GitOps repository responsible for installing components used for Composer AI
+## Prereqs
 
-## Installation
+Openshift Cluster with access to Openshift AI, GPUs and setup using [this repo](https://gitlab.consulting.redhat.com/redprojectai/infrastructure/day2-operations).
 
-### Prerequisites
+## Environment Setup
 
-- Requires OpenShift cluster of version 4.16 or above
+### Create Huggingface Key
 
-### Install Cluster Level Components (Recommended)
+Future plans involve the use of 
 
-Using the `bootstrap` script located in the [Cluster Gitops](https://github.com/redhat-composer-ai/cluster-gitops) repository will install all the required components as well as all the Composer AI Components located in this repository.
-
-### Install Directly
-
-If you already have an existing cluster that contains all the required cluster level operators the application can be installed by installing the helm chart located in `appOfApps`:
+Create AI Keys Secret:
 
 ```sh
-helm install composerAiConfig ./appOfApps
+export HUGGINGFACE_KEY=<key value>
+oc create secret generic ai-keys --from-literal=huggingface_aikey=$HUGGINGFACE_KEY
 ```
 
-> [!NOTE]  
-> Change `clusterDomain` and `repo` information in the `values.yaml` file if required.
+### Create Storage
+
+Create a DataConnection for a bucket containing the model
+
+```yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  name: storage-config
+  labels:
+    opendatahub.io/managed: 'true'
+data:
+  aws-connection-o-fish-bucket: xxxxxx
+type: Opaque
+```
+
+### Create DSPA Storage Config (for some reason look into)
+
+> Note: A bunch of other info is hardcoded into the code itself, it should probably all be read from a secret
+
+```yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  name: dspa-storage-config
+data:
+  AWS_ACCESS_KEY_ID: xxxx
+  AWS_SECRET_ACCESS_KEY: xxxxx
+type: Opaque  
+```

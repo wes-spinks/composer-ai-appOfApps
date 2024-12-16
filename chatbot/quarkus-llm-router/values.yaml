@@ -7,7 +7,7 @@ labels:
 
 name: quarkus-llm-router
 
-image:  quay.io/redhat-saia/quarkus-routing-service:v2.1.1
+image:  quay.io/redhat-saia/quarkus-routing-service:v2.0.1
 imagePullPolicy: Always
 
 serviceMesh:
@@ -21,17 +21,9 @@ mongodb:
   passwordSecret: mongodb-{{ .Release.Namespace }}
   passwordKey: mongodb-root-password
 
-openAIRuntime:
-  url: https://vllm-predictor-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/v1
-  apikey: abc123
-  modelname: vllm
-
 route:
   # The timeout needs to be pretty high if there are no GPUs available
   timeout: 200s
-
-# Uncomment the following to set log level to DEBUG
-# logLevel: DEBUG
 
 resources:
   limits:

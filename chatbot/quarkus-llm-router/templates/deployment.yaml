@@ -51,17 +51,17 @@ spec:
                   name: {{ tpl .Values.mongodb.passwordSecret . }}
                   key: {{ .Values.mongodb.passwordKey }}
             - name: OPENAI_DEFAULT_URL
-              value: {{ tpl .Values.openAIRuntime.url $ }}
+              value: https://vllm-predictor-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/v1
             - name: OPENAI_DEFAULT_APIKEY
-              value: {{ .Values.openAIRuntime.apikey }}
+              value: abc123
             - name: OPENAI_DEFAULT_MODELNAME
-              value: {{ .Values.openAIRuntime.modelname }}
+              value: Mistral-7B-Instruct-v0.3
             - name: GOOGLE_CLIENT_ID
               value: {{ .Values.GOOGLE_CLIENT_ID | default "CLIENT_ID" }}
             - name: GOOGLE_CLIENT_SECRET
               value: {{ .Values.GOOGLE_CLIENT_SECRET | default "CLIENT_SECRET" }}
             - name: QUARKUS_LOG_LEVEL
-              value: {{ .Values.logLevel | default "INFO" }}
+              value: DEBUG
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       {{- with .Values.tolerations }}

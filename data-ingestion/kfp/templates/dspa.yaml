@@ -4,12 +4,18 @@ metadata:
   name: dspa
 spec:
   apiServer:
-    artifactSignedURLExpirySeconds: 60
-    caBundleFileMountPath: ''
-    caBundleFileName: ''
+    stripEOF: true
+    dbConfigConMaxLifetimeSec: 120
+    applyTektonCustomResource: true
     deploy: true
-    enableOauth: true
     enableSamplePipeline: false
+    autoUpdatePipelineDefaultVersion: true
+    archiveLogs: false
+    terminateStatus: Cancelled
+    enableOauth: true
+    trackArtifacts: true
+    collectMetrics: true
+    injectDefaultScript: true
   database:
     disableHealthCheck: false
     mariaDB:
@@ -19,15 +25,22 @@ spec:
       username: mlpipeline
   dspVersion: v2
   objectStorage:
-    minio:
-      bucket: data-science-pipelines
-      deploy: true
-      image: {{ .Values.dspa.minio.image }}
-      pvcSize: {{ .Values.dspa.minio.pvcSize }}
+    disableHealthCheck: false
+    enableExternalRoute: false
+    externalStorage:
+      basePath: ''
+      bucket: '{{ .Values.storage.bucket }}'
+      host: '{{ .Values.storage.host }}'
+      port: ''
+      region: '{{ .Values.storage.region }}'
+      s3CredentialsSecret:
+        accessKey: '{{ .Values.storage.accessKey }}'
+        secretKey: '{{ .Values.storage.secretKey }}'
+        secretName: '{{ .Values.storage.secretName }}'
+      scheme: https
   persistenceAgent:
     deploy: true
     numWorkers: 2
-  podToPodTLS: true
   scheduledWorkflow:
     cronScheduleTimezone: UTC
     deploy: true

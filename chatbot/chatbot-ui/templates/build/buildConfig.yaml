@@ -2,9 +2,11 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   name: chatbot-ui-buildconfig
-  annotations:
-    argocd.argoproj.io/sync-wave: "-5"
 spec:
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 4Gi
   triggers:
   - type: ConfigChange
   source:
@@ -24,12 +26,6 @@ spec:
         - name: REACT_APP_INFO_URL
           value: >-
             {{ tpl .Values.backend.infoUrl $ }}
-        - name: REACT_APP_RETRIEVER_URL
-          value: >-
-            {{ tpl .Values.backend.retrieverUrl $ }}
-        - name: REACT_APP_LLM_URL
-          value: >-
-            {{ tpl .Values.backend.llmUrl $ }}
   output:
     to:
       kind: ImageStreamTag

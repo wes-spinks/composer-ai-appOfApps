@@ -2,8 +2,6 @@ apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   name: chatbot-ui-patternfly
-  annotations:
-    argocd.argoproj.io/sync-wave: "-5"
   labels:
     app: chatbot-ui
 spec:

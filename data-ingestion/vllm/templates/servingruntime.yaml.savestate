@@ -1,9 +1,8 @@
----
 apiVersion: serving.kserve.io/v1alpha1
 kind: ServingRuntime
 metadata:
   annotations:
-    opendatahub.io/recommended-accelerators: '["nvidia.com/gpu"]'
+    opendatahub.io/accelerator-name: nvidia-a10g
     opendatahub.io/apiProtocol: REST
     opendatahub.io/template-display-name: vLLM
     opendatahub.io/template-name: {{ .Values.servingModel.name }}
@@ -34,10 +33,6 @@ spec:
         - "{{ .Values.runtime.gpuMemoryUtilization }}"
         - --max-seq_len-to-capture
         - "{{ .Values.runtime.maxSeqLength }}"
-      command:
-        - python
-        - '-m'
-        - vllm.entrypoints.openai.api_server
       env:
         - name: VLLM_LOGGING_LEVEL
           value: {{ .Values.runtime.logLevel | default "INFO" }}
@@ -50,4 +45,4 @@ spec:
   multiModel: false
   supportedModelFormats:
     - autoSelect: true
-      name: vLLM
+      name: pytorch
