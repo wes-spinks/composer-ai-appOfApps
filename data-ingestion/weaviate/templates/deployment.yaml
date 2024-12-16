@@ -59,7 +59,7 @@ spec:
               protocol: TCP
             - containerPort: 50051
               protocol: TCP
-            - containerPort: 50052
+            - containerPort: 8081 
               protocol: TCP
           env:
           - name: CLUSTER_ADVERTISE_ADDR
@@ -75,9 +75,9 @@ spec:
           - name: PROMETHEUS_MONITORING_ENABLED
             value: 'false'
           - name: CLUSTER_GOSSIP_BIND_PORT
-            value: '50051'
+            value: '8081'
           - name: CLUSTER_DATA_BIND_PORT
-            value: '50052'
+            value: '8080'
           - name: RAFT_JOIN
             value: 'weaviate-vector-db'
           - name: RAFT_BOOTSTRAP_EXPECT
