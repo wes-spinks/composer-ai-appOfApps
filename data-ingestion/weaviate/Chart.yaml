@@ -24,8 +24,3 @@ version: 1.0.0
 appVersion: "1.0.0"
 
 # maybe https://github.com/weaviate/weaviate/issues/5641#issuecomment-2399719113
-env:
-  - name: CLUSTER_ADVERTISE_ADDR
-    valueFrom:
-      fieldRef:
-        fieldPath: status.podIP
