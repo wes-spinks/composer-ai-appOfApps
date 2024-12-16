@@ -60,6 +60,17 @@ spec:
             - containerPort: 50051
               protocol: TCP
           env:
+          env:
+          - name: CLUSTER_ADVERTISE_ADDR
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: RAFT_ENABLE_FQDN_RESOLVER
+            value: true
+          - name: RAFT_FQDN_RESOLVER_TLD
+            value: cia-ocpai--runtime-int.svc.cluster.local
+          - name: REPLICATION_MINIMUM_FACTOR
+            value: 1
             # Does not matter what the hostname is just needs to not change on redeploy or will cause connection issues
           - name: CLUSTER_HOSTNAME
             value: weaviate-vector-db

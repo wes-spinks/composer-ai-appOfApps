@@ -14,9 +14,3 @@ secretName: ai-keys  # HUGGINGFACE_APIKEY
 storageClass:
   name: gp3-csi
   size: 40Gi
-
-env:
-  - name: CLUSTER_ADVERTISE_ADDR
-    valueFrom:
-      fieldRef:
-        fieldPath: status.podIP
