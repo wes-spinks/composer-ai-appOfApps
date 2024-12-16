@@ -69,7 +69,7 @@ spec:
           - name: RAFT_FQDN_RESOLVER_TLD
             value: '.cia-ocpai--runtime-int.svc.cluster.local'
           - name: REPLICATION_MINIMUM_FACTOR
-            value: 1
+            value: '1'
           - name: PROMETHEUS_MONITORING_ENABLED
             value: 'false'
           - name: CLUSTER_GOSSIP_BIND_PORT
@@ -79,7 +79,7 @@ spec:
           - name: RAFT_JOIN
             value: 'weaviate-vector-db'
           - name: RAFT_BOOTSTRAP_EXPECT
-            value: 1
+            value: '1'
             # Does not matter what the hostname is just needs to not change on redeploy or will cause connection issues
           - name: CLUSTER_HOSTNAME
             value: weaviate-vector-db
