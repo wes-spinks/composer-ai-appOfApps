@@ -60,7 +60,6 @@ spec:
             - containerPort: 50051
               protocol: TCP
           env:
-          env:
           - name: CLUSTER_ADVERTISE_ADDR
             valueFrom:
               fieldRef:
