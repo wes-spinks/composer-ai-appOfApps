@@ -1,16 +1,16 @@
 name: composer-ai
 # Default Namespace for the application components
 application:
-  defaultNamespace: composer-ai-app 
+  defaultNamespace: cia-ocpai--runtime-int 
 
 # Git Repository for the ArgoCD Application
 repo:
-  url: https://github.com/lpanza/appOfApps.git # Change This on Fork
-  branch: main
+  url: https://github.com/wes-spinks/composer-ai-appOfApps.git # Change This on Fork
+  branch: lpanza
 
 # Namespace for the ArgoCD Application
 gitops:
-  namespace: composer-ai--runtime-int
+  namespace: cia-ocpai--runtime-int
 
 # Passing this value to all of the sub-applications to make it so we can dynamically figure out urls
 clusterDomain: apps.stc-ai-e1-dev.bpis.p1.openshiftapps.com

@@ -22,3 +22,15 @@ version: 1.0.0
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: "1.0.0"
+
+env:
+  - name: MY_POD_IP
+    valueFrom:
+      fieldRef:
+        fieldPath: status.podIP
+extraArgs:
+  config.expand-env: true
+config:
+  memberlist:
+    bind_addr:
+      - ${MY_POD_IP}
