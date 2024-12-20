@@ -30,7 +30,7 @@ applications:
     path: elasticsearch
     namespaceSuffix: apps
   - name: kfp-pipeline
-    path: data-ingestion/kfp
+    path: kfp
     namespaceSuffix: apps
   - name: quarkus-llm-router
     path: chatbot/quarkus-llm-router
