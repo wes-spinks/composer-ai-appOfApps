@@ -27,7 +27,7 @@ applications:
     namespaceSuffix: apps
     enabled: false
   - name: elasticsearch
-    path: data-ingestion/elasticsearch
+    path: elasticsearch
     namespaceSuffix: apps
   - name: kfp-pipeline
     path: data-ingestion/kfp
