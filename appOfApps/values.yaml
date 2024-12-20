@@ -23,7 +23,7 @@ applications:
     path: vllm
     namespaceSuffix: apps
   - name: weaviate
-    path: data-ingestion/weaviate
+    path: weaviate
     namespaceSuffix: apps
     enabled: false
   - name: elasticsearch
