@@ -20,7 +20,7 @@ defaultValuesFile: values.yaml
 # Applications to be deployed
 applications:
   - name: vllm-model
-    path: data-ingestion/vllm
+    path: vllm
     namespaceSuffix: apps
   - name: weaviate
     path: data-ingestion/weaviate
