@@ -36,7 +36,7 @@ applications:
     path: chatbot/quarkus-llm-router
     namespaceSuffix: apps
   - name: chatbot-ui
-    path: chatbot/chatbot-ui
+    path: chatbot-ui
     namespaceSuffix: apps
     # Add ignoreDifferences to allow deployment to be updated by ImageStream
     ignoreDifferences:
