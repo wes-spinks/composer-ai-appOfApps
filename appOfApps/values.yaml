@@ -33,7 +33,7 @@ applications:
     path: kfp
     namespaceSuffix: apps
   - name: quarkus-llm-router
-    path: chatbot/quarkus-llm-router
+    path: conductor/quarkus-llm-router
     namespaceSuffix: apps
   - name: chatbot-ui
     path: chatbot-ui
@@ -45,7 +45,7 @@ applications:
         jsonPointers:
           - /spec/template/spec/containers/0/image
   - name: mongodb
-    path: chatbot/mongodb
+    path: conductor/mongodb
     namespaceSuffix: apps
   - name: bootstrap
     path: util/bootstrap
