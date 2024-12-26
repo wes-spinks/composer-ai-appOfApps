@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: create-assistant
+  name: create-assistant-rag
 spec:
   params:
     - name: name
