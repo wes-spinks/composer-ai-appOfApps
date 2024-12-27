@@ -32,11 +32,11 @@ spec:
           resources:
             {{- .Values.resources | toYaml | nindent 12 }}
           env:
-            - name: WEAVIATE_DEFAULT_APIKEY
+            - name: ELASTICSEARCH_DEFAULT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: weaviate-api-key-secret
-                  key: AUTHENTICATION_APIKEY_ALLOWED_KEYS
+                  name: elasticsearch-es-elastic-user
+                  key: elastic
             - name: QUARKUS_MONGODB_CONNECTION_STRING
               value: mongodb://mongodb-{{ .Release.Namespace }}:27017
             - name: QUARKUS_MONGODB_DATABASE
