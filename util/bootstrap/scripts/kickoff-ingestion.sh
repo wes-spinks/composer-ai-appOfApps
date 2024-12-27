@@ -23,6 +23,12 @@ done
 #   gpu_count=$(oc get nodes -o jsonpath='{.items[*].status.allocatable.nvidia\.com/gpu}' | grep -o '[0-9]\+' | paste -sd+ - | bc)
 # done
 
+while ! oc get pipeline ingestion-pipeline >/dev/null 2>&1; do
+  echo "Waiting for pipeline 'ingestion-pipeline' to exist..."
+  sleep 5
+done
+
+echo "Pipeline 'ingestion-pipeline-${pipeline_suffix}' exists."
 
 # Generate a random alphanumeric string
 pipeline_suffix=$(cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 5 | head -n 1)

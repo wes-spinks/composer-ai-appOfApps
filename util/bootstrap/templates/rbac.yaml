@@ -26,6 +26,14 @@ rules:
 - apiGroups:
   - "tekton.dev"
   resources: 
+    - "pipelines"
+  verbs: 
+    - "get"
+    - "list"
+    - "watch"
+- apiGroups:
+  - "tekton.dev"
+  resources: 
     - "pipelineruns"
   verbs: 
     - "create"
