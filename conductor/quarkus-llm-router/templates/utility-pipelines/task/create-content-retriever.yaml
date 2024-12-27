@@ -6,8 +6,8 @@ spec:
   params:
     - name: contentRetrieverType
       type: string
-      description: The type of content retriever to create, currently only "weaviate" is supported
-      default: "weaviate"
+      description: The type of content retriever to create
+      default: "elasticsearch"
     - name: textKey
       type: string
       description: The key in the content retriever that contains the text

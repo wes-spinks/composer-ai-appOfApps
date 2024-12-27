@@ -1,0 +1,54 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: create-retriever-connection
+spec:
+  params:
+    - name: rag_name
+      type: string
+      description: The name of the Rag connection
+      default: "Example RAG"
+    - name: rag_description
+      type: string
+      description: The description of the Retreiver Connection
+      default: "Example of a rag connection"
+    - name: contentRetrieverType
+      type: string
+      description: The type of content retriever to create
+      default: "elasticsearch"
+    - name: textKey
+      type: string
+      description: The key in the content retriever that contains the text
+      default: "source"
+    - name: metadata
+      type: string
+      description: The keys in the content retriever that contain metadata, comma-separated
+      default: "\"source\",\"title\""
+    - name: index
+      type: string
+      description: The index to use in the content retriever
+      default: "my_custom_index"
+    - name: embeddingType
+      type: string
+      description: The type of embedding to use
+      default: "nomic"
+  tasks:
+    - name: create-content-retriever
+      taskRef:
+        name: create-content-retriever
+      params:
+        - name: contentRetrieverType
+          value: $(params.contentRetrieverType)
+        - name: textKey
+          value: $(params.textKey)
+        - name: metadata
+          value: $(params.metadata)
+        - name: index
+          value: $(params.index)
+        - name: embeddingType
+          value: $(params.embeddingType)
+        - name: name
+          value: $(params.rag_name)
+        - name: description
+          value: $(params.rag_description)
+        
