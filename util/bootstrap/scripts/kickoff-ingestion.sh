@@ -11,7 +11,7 @@ done
 echo "Statefulset 'elasticsearch-es-default' exists."
 
 # Check if the statefulset is running
-while ! kubectl get statefulset elasticsearch-es-default -o jsonpath='{.status.readyReplicas}' | grep -qE '^[1-9][0-9]*$'; do
+while [[ $(oc get statefulset elasticsearch-es-default -o jsonpath='{.status.availableReplicas}') != "3" ]]; do
   echo "Waiting for statefulset 'elasticsearch-es-default' to be running..."
   sleep 5
 done
