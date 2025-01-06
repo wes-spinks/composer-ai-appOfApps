@@ -1,0 +1,36 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: {{ include "lab-elastic-secret-job.fullname" . }}-
+  name: {{ include "lab-elastic-secret-job.fullname" . }}
+spec:
+  template:
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          # image: image-registry.openshift-image-registry.svc:5000/openshift/tools:latest
+          image: registry.redhat.io/openshift4/ose-cli
+          env:
+            - name: SECRET_NAME
+              value: "elasticsearch-es-elastic-user"
+            - name: SECRET_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          command:
+            - /bin/bash
+            - -c
+            - /scripts/job.sh
+          volumeMounts:
+            - name: scripts
+              mountPath: /scripts
+      volumes:
+        - name: scripts
+          configMap:
+            name: {{ include "lab-elastic-secret-job.fullname" . }}
+            defaultMode: 0755
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 30
+      serviceAccount: {{ include "lab-elastic-secret-job.fullname" . }}
+      serviceAccountName: {{ include "lab-elastic-secret-job.fullname" . }}
