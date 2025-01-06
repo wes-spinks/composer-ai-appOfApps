@@ -5,6 +5,13 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "-5"
 spec:
+  resources:
+    limits:
+      cpu: '2'
+      memory: 6Gi
+    requests:
+      cpu: '1'
+      memory: 4Gi
   triggers:
   - type: ConfigChange
   source:
