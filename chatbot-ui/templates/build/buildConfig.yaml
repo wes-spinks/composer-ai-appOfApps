@@ -10,7 +10,8 @@ spec:
   source:
     type: Git
     git:
-      uri: 'https://github.com/redhat-composer-ai/chatbot-ui.git'
+      uri: 'https://github.com/wes-spinks/chatbot-ui.git'
+      ref: 'sso'
     contextDir: /
   strategy:
     sourceStrategy:
