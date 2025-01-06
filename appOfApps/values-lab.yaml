@@ -24,9 +24,9 @@ applications:
   - name: mongodb
     path: conductor/mongodb
     namespaceSuffix: apps
-  - name: bootstrap
-    path: util/bootstrap
-    namespaceSuffix: apps
+  # - name: bootstrap
+  #   path: util/bootstrap
+  #   namespaceSuffix: apps
   - name: lab-elastic-secret-job
     path: util/lab-elastic-secret-job
     namespaceSuffix: apps
