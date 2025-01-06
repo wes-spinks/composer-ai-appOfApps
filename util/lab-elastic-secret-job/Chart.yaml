@@ -1,9 +1,7 @@
 apiVersion: v2
 name: lab-elastic-secret-job
-description: A Helm chart for Kubernetes
-
+description: A Helm chart that sets up a temporary secret for elasticsearch in order to allow the conductor application to successfully start.
 
 type: application
-
 
 version: 0.1.0
