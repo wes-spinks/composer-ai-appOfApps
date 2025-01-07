@@ -10,7 +10,8 @@ spec:
   source:
     type: Git
     git:
-      uri: 'https://github.com/redhat-composer-ai/chatbot-ui.git'
+      uri: {{ .Values.repo.url }}
+      ref: {{ .Values.repo.branch }}
     contextDir: /
   strategy:
     sourceStrategy:
