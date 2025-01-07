@@ -1,0 +1,32 @@
+name: github pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release'
+        required: true
+        default: 'v0.0.0'
+jobs:
+  tag_and_push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      
+      - name: Information
+        run: |
+          echo "Creating Tag ${{ github.event.inputs.tag}}"
+
+
+      - name: Update Tag Values
+        run: |
+          yq eval -i '.repo.branch = "${{ github.event.inputs.tag}}"' appOfApps/values.yaml
+
+      - name: Create tag
+        run: git tag ${{ github.event.inputs.tag }}
+
+      - name: Push tag
+        run: git push origin ${{ github.event.inputs.tag }}
