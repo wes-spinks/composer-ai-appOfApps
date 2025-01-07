@@ -42,11 +42,13 @@ jobs:
   release:
     name: Release pushed tag
     runs-on: ubuntu-latest
+    permissions: write-all
+
     steps:
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.ref_name }}
+          tag: ${{ github.event.inputs.tag }}
         run: |
           gh release create "$tag" \
               --repo="$GITHUB_REPOSITORY" \
