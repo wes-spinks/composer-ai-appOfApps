@@ -66,12 +66,7 @@ spec:
       terminationGracePeriodSeconds: 30
       {{- with .Values.tolerations }}
       tolerations:
-        - key: {{ .key }}
-          operator: {{ .operator | default "Equal" }}
-          {{- if .value }}
-          value: {{ .value }}
-          {{- end }}
-          effect: {{ .effect | default "NoExecute" }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
   strategy:
     type: RollingUpdate
