@@ -45,6 +45,10 @@ resources:
     memory: 1Gi
     
 tolerations:
-  effect: NoSchedule
-  key: nvidia.com/gpu
-  value: True
+  - effect: NoSchedule
+    key: nvidia.com/gpu
+    operator: Equal
+  - effect: NoSchedule
+    key: nvidia.com/gpu
+    operator: Equal
+    value: "True"
