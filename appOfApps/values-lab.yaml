@@ -12,6 +12,9 @@ applications:
   - name: quarkus-llm-router
     path: conductor/quarkus-llm-router
     namespaceSuffix: apps
+    parameters:
+      - name: profile
+        value: prod,lab
   - name: chatbot-ui
     path: chatbot-ui
     namespaceSuffix: apps
