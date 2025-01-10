@@ -51,7 +51,7 @@ openid:
   image:
     repository: "quay.io/oauth2-proxy/oauth2-proxy"
     # appVersion is used by default
-    tag: "7.7.1"
+    tag: "v7.7.1"
     pullPolicy: "IfNotPresent"
     command: []
     securityContext:
