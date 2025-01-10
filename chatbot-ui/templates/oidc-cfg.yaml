@@ -1,0 +1,19 @@
+{{- if .Values.openid.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+{{- with .Values.config.annotations }}
+  annotations:
+{{ tpl ( toYaml . ) $ | indent 4 }}
+{{- end }}
+  labels:
+{{- include ".Values.labels" . | indent 4 }}
+  name: {{ template ".Values.name" + "_oauth" . }}
+  namespace: {{ .Release.namespace }}
+data:
+  oauth2_proxy.cfg:
+{{- range $key, $val := .Values.openid.config }}
+    {{ $key }} = {{ $val }}
+{{- end }}
+
+{{- end }}
