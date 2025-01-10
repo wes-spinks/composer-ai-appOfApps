@@ -8,12 +8,11 @@ metadata:
 {{- end }}
   labels:
 {{- include ".Values.labels" . | indent 4 }}
-  name: {{ template ".Values.name" + "_oauth" . }}
+  name: {{ .Values.name }}-oauth
   namespace: {{ .Release.namespace }}
 data:
-  oauth2_proxy.cfg:
+  oauth2_proxy.cfg: |
 {{- range $key, $val := .Values.openid.config }}
-    {{ $key }} = {{ $val }}
+    {{ $key }} = {{ $val | quote }}
 {{- end }}
-
 {{- end }}
