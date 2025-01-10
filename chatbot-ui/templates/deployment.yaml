@@ -73,6 +73,9 @@ spec:
             - name: "{{ .Values.name }}-oauth"
               mountPath: /etc/oauth2_proxy/oauth2_proxy.cfg
               subPath: oauth2_proxy.cfg
+           - mountPath: /etc/pki/tls/certs/generated
+              name: cert-mount
+              readOnly: true
       {{- end }}
       volumes:
       {{- if .Values.openid.enabled }}
@@ -80,6 +83,9 @@ spec:
           configMap:
             name: "{{ .Values.name }}-oauth"
       {{- end }}
+        - name: cert-mount
+          secret:
+            secretName: "{{ .Values.name }}-certs"
       restartPolicy: Always
       terminationGracePeriodSeconds: 30 
   strategy:
