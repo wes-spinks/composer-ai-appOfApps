@@ -76,7 +76,7 @@ spec:
       volumes:
       {{- if .Values.openid.enabled }}
         - name:
-          configMapRef:
+          configMap:
             name: "{{ .Values.name }}-oauth"
        {{ else }}
         {}
