@@ -42,7 +42,7 @@ spec:
             - --metrics-address=0.0.0.0:44180
           {{- end }}
           ports:
-            - containerPort: 4443 #exposed host from existing chart
+            - containerPort: 4180 #exposed host from existing chart
               protocol: TCP
             {{- if .Values.metrics.enabled }}
             - containerPort: 44180 #exposed host from existing chart
@@ -53,8 +53,8 @@ spec:
           livenessProbe:
             httpGet:
               path: /ping
-              port: {{ .Values.httpScheme }}
-              scheme: {{ .Values.httpScheme | upper }}
+              port: 3000-tcp
+              scheme: HTTP
             timeoutSeconds: {{ .Values.openid.livenessProbe.timeoutSeconds }}
             initialDelaySeconds: {{ .Values.openid.livenessProbe.initialDelaySeconds }}
           {{- end }}
@@ -62,8 +62,8 @@ spec:
           readinessProbe:
             httpGet:
               path: /ready
-              port: {{ .Values.httpScheme }}
-              scheme: {{ .Values.httpScheme | upper }}
+              port: 3000-tcp
+              scheme: HTTP
             timeoutSeconds: {{ .Values.openid.readinessProbe.timeoutSeconds }}
             initialDelaySeconds: {{ .Values.openid.readinessProbe.initialDelaySeconds }}
             successThreshold: {{ .Values.openid.readinessProbe.successThreshold }}
@@ -73,9 +73,9 @@ spec:
             - name: "{{ .Values.name }}-oauth"
               mountPath: /etc/oauth2_proxy/oauth2_proxy.cfg
               subPath: oauth2_proxy.cfg
-           - mountPath: /etc/pki/tls/certs/generated
-              name: cert-mount
-              readOnly: true
+          #  - mountPath: /etc/pki/tls/certs/generated
+          #     name: cert-mount
+          #     readOnly: true
       {{- end }}
       volumes:
       {{- if .Values.openid.enabled }}
@@ -83,9 +83,9 @@ spec:
           configMap:
             name: "{{ .Values.name }}-oauth"
       {{- end }}
-        - name: cert-mount
-          secret:
-            secretName: "{{ .Values.name }}-certs"
+        # - name: cert-mount
+        #   secret:
+        #     secretName: "{{ .Values.name }}-certs"
       restartPolicy: Always
       terminationGracePeriodSeconds: 30 
   strategy:
