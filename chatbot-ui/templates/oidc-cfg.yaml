@@ -10,7 +10,7 @@ kind: ConfigMap
 metadata:
   labels:
 {{- include "labels" . | indent 4 }}
-  name: {{ .Values.name }}-oauth
+  name: "{{ .Values.name }}-oauth"
   namespace: {{ .Release.namespace }}
 data:
   oauth2_proxy.cfg: |
