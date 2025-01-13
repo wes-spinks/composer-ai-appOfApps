@@ -30,3 +30,45 @@ backend:
   infoUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant
   retrieverUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant/retrieverConnection
   llmUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant/llm
+
+httpScheme: "https"
+openid:
+  enabled: true
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 0
+    timeoutSeconds: 1
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 0
+    timeoutSeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+  config:
+    provider: keycloak-oidc
+    client-id: ""
+    client-secret: ""
+    redirect-url: https://internal.yourcompany.com/oauth2/callback
+    oidc-issuer-url: ""
+    # email-domain=<yourcompany.com> # Validate email domain for users, see option documentation
+    # code-challenge-method=S256 # PKCE
+  image:
+    repository: "quay.io/oauth2-proxy/oauth2-proxy"
+    # appVersion is used by default
+    tag: "v7.7.1"
+    pullPolicy: "IfNotPresent"
+    command: []
+    securityContext:
+      enabled: true
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 2000
+      runAsGroup: 2000
+      seccompProfile:
+    type: RuntimeDefault
+metrics:
+  enabled: false
