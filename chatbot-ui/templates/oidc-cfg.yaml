@@ -2,7 +2,7 @@
 {{ $requiredConfig := pick .Values.openid.config "client_id" "client_secret" "redirect_url" "email_domains" "cookie_secret" "oidc_issuer_url" }} # ... all the ones we require
 {{- range $requiredConfig }}
     {{ if .|empty }}
-    fail "all default odic options must be entered if enabled"
+    {{ fail "all default odic options must be entered if enabled" }}
     {{- end }}
 {{- end }}
 apiVersion: v1
