@@ -17,8 +17,8 @@ spec:
   source:
     type: Git
     git:
-      uri: 'https://github.com/wes-spinks/chatbot-ui.git'
-      ref: main
+      uri: {{ .Values.repo.url }}
+      ref: {{ .Values.repo.branch }}
     contextDir: /
   strategy:
     sourceStrategy:

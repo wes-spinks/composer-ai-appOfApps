@@ -1,0 +1,58 @@
+name: Tag and Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release'
+        required: true
+        default: 'v0.0.0'
+jobs:
+  tag_and_push:
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      
+      - name: Information
+        run: |
+          echo "Creating Tag ${{ github.event.inputs.tag}}"
+
+
+      - name: Update Tag Values
+        run: |
+          yq eval -i '.repo.branch = "${{ github.event.inputs.tag}}"' appOfApps/values.yaml
+
+      - name: Commit changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add appOfApps/values.yaml
+          git commit -m "Update branch value to ${{ github.event.inputs.tag }}"
+  
+      - name: Create tag
+        run: git tag ${{ github.event.inputs.tag }}
+
+      - name: Push tag
+        run: git push origin ${{ github.event.inputs.tag }}
+
+  release:
+    name: Release pushed tag
+    runs-on: ubuntu-latest
+    permissions: write-all
+    needs: tag_and_push
+    
+
+    steps:
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.event.inputs.tag }}
+        run: |
+          gh release create "$tag" \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
+              --generate-notes

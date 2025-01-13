@@ -7,8 +7,11 @@ labels:
 
 name: quarkus-llm-router
 
-image:  quay.io/redhat-saia/quarkus-routing-service:v2.2.0
+image:  quay.io/redhat-composer-ai/conductor:v2.2.1
 imagePullPolicy: Always
+
+# Quarkus profile
+profile: prod
 
 serviceMesh:
   enabled: false
@@ -42,5 +45,10 @@ resources:
     memory: 1Gi
     
 tolerations:
-  key: "nvidia.com/gpu"
-  effect: NoSchedule
+  - effect: NoSchedule
+    key: nvidia.com/gpu
+    operator: Equal
+  - effect: NoSchedule
+    key: nvidia.com/gpu
+    operator: Equal
+    value: "True"

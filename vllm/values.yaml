@@ -9,6 +9,10 @@ tolerations:
   - effect: NoSchedule
     key: nvidia.com/gpu
     operator: Equal
+  - effect: NoSchedule
+    key: nvidia.com/gpu
+    operator: Equal
+    value: "True"
 
 servingModel:
   resources:

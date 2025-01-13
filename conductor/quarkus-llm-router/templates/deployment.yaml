@@ -56,22 +56,15 @@ spec:
               value: {{ .Values.openAIRuntime.apikey }}
             - name: OPENAI_DEFAULT_MODELNAME
               value: {{ .Values.openAIRuntime.modelname }}
-            - name: GOOGLE_CLIENT_ID
-              value: {{ .Values.GOOGLE_CLIENT_ID | default "CLIENT_ID" }}
-            - name: GOOGLE_CLIENT_SECRET
-              value: {{ .Values.GOOGLE_CLIENT_SECRET | default "CLIENT_SECRET" }}
             - name: QUARKUS_LOG_LEVEL
               value: {{ .Values.logLevel | default "INFO" }}
+            - name: QUARKUS_PROFILE
+              value: {{ .Values.profile }}
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       {{- with .Values.tolerations }}
       tolerations:
-        - key: {{ .key }}
-          operator: {{ .operator | default "Equal" }}
-          {{- if .value }}
-          value: {{ .value }}
-          {{- end }}
-          effect: {{ .effect | default "NoExecute" }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
   strategy:
     type: RollingUpdate
