@@ -15,6 +15,6 @@ metadata:
 data:
   oauth2_proxy.cfg: |
 {{- range $key, $val := .Values.openid.config }}
-    {{ $key }} = {{ $val | quote }}
+    {{ $key }} = {{ $val | toJson }}
 {{- end }}
 {{- end }}
