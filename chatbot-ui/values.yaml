@@ -31,7 +31,7 @@ backend:
   retrieverUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant/retrieverConnection
   llmUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant/llm
 
-httpScheme: "https"
+httpScheme: "http"
 openid:
   enabled: true
   livenessProbe:
@@ -48,10 +48,12 @@ openid:
     provider: keycloak-oidc
     client-id: ""
     client-secret: ""
-    redirect-url: https://internal.yourcompany.com/oauth2/callback
+    redirect-url: ""
     oidc-issuer-url: ""
-    # email-domain=<yourcompany.com> # Validate email domain for users, see option documentation
-    # code-challenge-method=S256 # PKCE
+    email-domain: "" # Validate email domain for users, see option documentation
+    upstreams: ["http://localhost:3000"]
+    cookie_secret: ""
+    code-challenge-method: "S256" # PKCE
   image:
     repository: "quay.io/oauth2-proxy/oauth2-proxy"
     # appVersion is used by default
@@ -69,6 +71,6 @@ openid:
       runAsUser: 2000
       runAsGroup: 2000
       seccompProfile:
-    type: RuntimeDefault
+        type: RuntimeDefault
 metrics:
   enabled: false
