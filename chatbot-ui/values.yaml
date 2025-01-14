@@ -7,7 +7,7 @@ labels:
 
 name: chatbot-ui
 
-image: 'chatbot-ui-patternfly:latest'
+image: 'quay.io/redhat-composer-aicomposer-ai-studio:v0.1' # Update me
 imagePullPolicy: Always
 
 serviceMesh:
