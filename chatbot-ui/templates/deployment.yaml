@@ -5,8 +5,6 @@ metadata:
   labels: 
     {{- include "labels" . | nindent 4 }}
     deployment: {{ .Values.name }}
-  annotations:
-    alpha.image.policy.openshift.io/resolve-names: '*'
 spec:
   replicas: 1
   selector:
@@ -28,10 +26,17 @@ spec:
             - containerPort: 3000
               protocol: TCP
           imagePullPolicy: {{ .Values.imagePullPolicy | default "IfNotPresent" }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /opt/app-root/src/config # Update me
           resources:
             {{- .Values.resources | toYaml | nindent 12 }}
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Values.name }}-config
   strategy:
     type: RollingUpdate
     rollingUpdate:

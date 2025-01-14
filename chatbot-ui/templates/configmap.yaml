@@ -4,4 +4,8 @@ metadata:
   name: {{ .Values.name }}-config
   labels:
     {{- include "labels" . | nindent 4 }}
-data: {}
+data:
+  config.json: | # Update me
+    {
+      BACKEND_URL: {{ tpl .Values.backend.url $ }}
+    }
