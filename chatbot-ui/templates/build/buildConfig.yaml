@@ -17,11 +17,11 @@ spec:
     sourceStrategy:
       from:
         kind: DockerImage
-        name: registry.access.redhat.com/ubi9/nodejs-20-minimal
+        name: quay.io/jland/chatbot-ui-builder-image
       env:
         - name: REACT_APP_ROUTER_URL
           value: >-
-            {{ tpl .Values.backend.url $ }}
+            {{ tpl .Values.backend.streamingUrl $ }}
         - name: REACT_APP_INFO_URL
           value: >-
             {{ tpl .Values.backend.infoUrl $ }}
@@ -31,6 +31,10 @@ spec:
         - name: REACT_APP_LLM_URL
           value: >-
             {{ tpl .Values.backend.llmUrl $ }}
+        - name: REACT_APP_BACKEND_URL
+          value: >-
+            {{ tpl .Values.backend.url $ }}
+          
   output:
     to:
       kind: ImageStreamTag

@@ -25,8 +25,10 @@ resources:
     cpu: 250m
     memory: 1Gi
 
+# TODO: Remove path specific URLs once we finish updating the frontend
 backend:
-  url: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/assistant/chat/streaming
+  url: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}
+  streamingUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/assistant/chat/streaming
   infoUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant
   retrieverUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant/retrieverConnection
   llmUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant/llm
