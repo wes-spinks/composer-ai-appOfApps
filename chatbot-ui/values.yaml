@@ -15,7 +15,7 @@ serviceMesh:
 
 repo:
   url: https://github.com/redhat-composer-ai/chatbot-ui.git
-  branch: v2.2.0
+  branch: v2.2.2
 
 resources:
   limits:
@@ -34,13 +34,14 @@ buildResources:
     memory: 4Gi
 
 backend:
-  url: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/assistant/chat/streaming
+  url: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}
+  streamingUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/assistant/chat/streaming
   infoUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant
   retrieverUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant/retrieverConnection
   llmUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant/llm
 
-httpScheme: "http"
 openid:
+  httpScheme: "http"
   enabled: true
   livenessProbe:
     enabled: true
@@ -80,5 +81,5 @@ openid:
       runAsGroup: 2000
       seccompProfile:
         type: RuntimeDefault
-metrics:
-  enabled: false
+  metrics:
+    enabled: false
