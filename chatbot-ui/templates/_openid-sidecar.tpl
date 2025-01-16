@@ -21,7 +21,7 @@
           livenessProbe:
             httpGet:
               path: /ping
-              port: 3000-tcp
+              port: 4180
               scheme: HTTP
             timeoutSeconds: {{ .Values.openid.livenessProbe.timeoutSeconds }}
             initialDelaySeconds: {{ .Values.openid.livenessProbe.initialDelaySeconds }}
@@ -30,7 +30,7 @@
           readinessProbe:
             httpGet:
               path: /ready
-              port: 3000-tcp
+              port: 4180
               scheme: HTTP
             timeoutSeconds: {{ .Values.openid.readinessProbe.timeoutSeconds }}
             initialDelaySeconds: {{ .Values.openid.readinessProbe.initialDelaySeconds }}
