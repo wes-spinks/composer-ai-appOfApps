@@ -31,7 +31,7 @@ spec:
           resources:
             {{- .Values.resources | toYaml | nindent 12 }}
       {{- if .Values.openid.enabled }}
-        {{- template "chatbotUi.openIdSidecar" }}
+        {{- template "chatbotUi.openIdSidecar" . }}
       {{- end }}
       restartPolicy: Always
       terminationGracePeriodSeconds: 30 
