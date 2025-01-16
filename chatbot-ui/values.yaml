@@ -40,8 +40,8 @@ backend:
   retrieverUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant/retrieverConnection
   llmUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/admin/assistant/llm
 
+httpScheme: "http"
 openid:
-  httpScheme: "http"
   enabled: true
   livenessProbe:
     enabled: true
@@ -81,5 +81,5 @@ openid:
       runAsGroup: 2000
       seccompProfile:
         type: RuntimeDefault
-  metrics:
-    enabled: false
+metrics:
+  enabled: false
