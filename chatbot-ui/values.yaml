@@ -34,7 +34,7 @@ backend:
 
 httpScheme: "http"
 openid:
-  enabled: true
+  enabled: false
   livenessProbe:
     enabled: true
     initialDelaySeconds: 0
