@@ -25,14 +25,6 @@ resources:
     cpu: 250m
     memory: 1Gi
 
-buildResources:
-  limits:
-    cpu: '2'
-    memory: 6Gi
-  requests:
-    cpu: '1'
-    memory: 4Gi
-
 backend:
   url: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}
   streamingUrl: https://quarkus-llm-router-{{ .Release.Namespace }}.{{ .Values.clusterDomain }}/assistant/chat/streaming
