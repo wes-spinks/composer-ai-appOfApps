@@ -73,5 +73,5 @@ openid:
       runAsGroup: 2000
       seccompProfile:
         type: RuntimeDefault
-metrics:
-  enabled: false
+  metrics:
+    enabled: false
