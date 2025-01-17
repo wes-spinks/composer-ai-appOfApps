@@ -5,6 +5,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "-5"
 spec:
+  resources:
+    {{- .Values.buildResources | toYaml | nindent 4 }}
   triggers:
   - type: ConfigChange
   source:
@@ -34,7 +36,6 @@ spec:
         - name: REACT_APP_BACKEND_URL
           value: >-
             {{ tpl .Values.backend.url $ }}
-          
   output:
     to:
       kind: ImageStreamTag

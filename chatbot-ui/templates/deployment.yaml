@@ -1,4 +1,4 @@
-﻿kind: Deployment
+kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: {{ .Values.name }}
@@ -30,8 +30,11 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy | default "IfNotPresent" }}
           resources:
             {{- .Values.resources | toYaml | nindent 12 }}
+      {{- if .Values.openid.enabled }}
+        {{- template "chatbotUi.openIdSidecar" . }}
+      {{- end }}
       restartPolicy: Always
-      terminationGracePeriodSeconds: 30
+      terminationGracePeriodSeconds: 30 
   strategy:
     type: RollingUpdate
     rollingUpdate:
