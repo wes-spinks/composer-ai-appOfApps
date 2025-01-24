@@ -29,13 +29,14 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /opt/app-root/src/public
+          resources:
             {{- .Values.resources | toYaml | nindent 12 }}
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       volumes:
-        - name: config-volume
-          configMap:
-            name: {{ .Values.name }}-config
+      - name: config-volume
+        configMap:
+          name: {{ .Values.name }}-config
   strategy:
     type: RollingUpdate
     rollingUpdate:
