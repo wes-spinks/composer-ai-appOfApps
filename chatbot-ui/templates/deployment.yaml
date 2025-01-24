@@ -23,7 +23,7 @@ spec:
         - name: {{ .Values.name }}
           image: {{ tpl .Values.image $ }}
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
               protocol: TCP
           imagePullPolicy: {{ .Values.imagePullPolicy | default "IfNotPresent" }}
           volumeMounts:

@@ -8,14 +8,14 @@ metadata:
   #   service.alpha.openshift.io/serving-cert-secret-name: "{{ .Values.name }}-certs"
 spec:
   ports:
-    - name: 3000-tcp
+    - name: 8080-tcp
       protocol: TCP
       {{- if .Values.openid.enabled }}
       port: 4180
       targetPort: 4180
       {{ else }}
-      port: 3000
-      targetPort: 3000
+      port: 8080
+      targetPort: 8080
       {{- end }}
   internalTrafficPolicy: Cluster
   type: ClusterIP

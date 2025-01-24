@@ -9,7 +9,7 @@ spec:
     kind: Service
     name: {{ .Values.name }}
   port:
-    targetPort: 3000-tcp
+    targetPort: 8080-tcp
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect

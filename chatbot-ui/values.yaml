@@ -48,7 +48,7 @@ openid:
     redirect_url: ""
     oidc_issuer_url: ""
     email_domains: [] # Validate email domain for users, see option documentation
-    upstreams: ["http://localhost:3000"]
+    upstreams: ["http://localhost:8080"]
     cookie_secret: ""
     code_challenge_method: "S256" # PKCE
   image:
