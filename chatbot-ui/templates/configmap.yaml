@@ -4,4 +4,13 @@ metadata:
   name: {{ .Values.name }}-config
   labels:
     {{- include "labels" . | nindent 4 }}
-data: {}
+data:
+  config.json: |
+    {
+      "REACT_APP_BASE_URL": {{ tpl .Values.backend.url $ | quote }}
+    }
+  # Incase user sets `NODE_ENV` to development or test
+  config-local.json: |
+    {
+      "REACT_APP_BASE_URL": {{  tpl .Values.backend.url $ | quote }}
+    }

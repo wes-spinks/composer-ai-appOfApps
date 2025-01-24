@@ -7,15 +7,11 @@ labels:
 
 name: chatbot-ui
 
-image: 'chatbot-ui-patternfly:latest'
+image: 'quay.io/redhat-composer-ai/composer-ui:v0.2.3'
 imagePullPolicy: Always
 
 serviceMesh:
   enabled: false
-
-repo:
-  url: https://github.com/redhat-composer-ai/chatbot-ui.git
-  branch: v2.2.2
 
 resources:
   limits:
@@ -52,7 +48,7 @@ openid:
     redirect_url: ""
     oidc_issuer_url: ""
     email_domains: [] # Validate email domain for users, see option documentation
-    upstreams: ["http://localhost:3000"]
+    upstreams: ["http://localhost:8080"]
     cookie_secret: ""
     code_challenge_method: "S256" # PKCE
   image:

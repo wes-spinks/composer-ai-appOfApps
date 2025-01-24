@@ -5,8 +5,6 @@ metadata:
   labels: 
     {{- include "labels" . | nindent 4 }}
     deployment: {{ .Values.name }}
-  annotations:
-    alpha.image.policy.openshift.io/resolve-names: '*'
 spec:
   replicas: 1
   selector:
@@ -25,16 +23,23 @@ spec:
         - name: {{ .Values.name }}
           image: {{ tpl .Values.image $ }}
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
               protocol: TCP
           imagePullPolicy: {{ .Values.imagePullPolicy | default "IfNotPresent" }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /opt/app-root/src/public
           resources:
             {{- .Values.resources | toYaml | nindent 12 }}
       {{- if .Values.openid.enabled }}
         {{- template "chatbotUi.openIdSidecar" . }}
       {{- end }}
       restartPolicy: Always
-      terminationGracePeriodSeconds: 30 
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: config-volume
+        configMap:
+          name: {{ .Values.name }}-config
   strategy:
     type: RollingUpdate
     rollingUpdate:
