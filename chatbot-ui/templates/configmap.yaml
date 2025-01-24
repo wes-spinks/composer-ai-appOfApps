@@ -7,10 +7,10 @@ metadata:
 data:
   config.json: |
     {
-      "BACKEND_URL": {{ tpl .Values.backend.url $ | quote }}
+      "REACT_APP_BASE_URL": {{ tpl .Values.backend.url $ | quote }}
     }
   # Incase user sets `NODE_ENV` to development or test
   config-local.json: |
     {
-      "BACKEND_URL": {{  tpl .Values.backend.url $ | quote }}
+      "REACT_APP_BASE_URL": {{  tpl .Values.backend.url $ | quote }}
     }
