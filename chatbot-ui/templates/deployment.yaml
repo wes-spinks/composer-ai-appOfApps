@@ -28,8 +28,7 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy | default "IfNotPresent" }}
           volumeMounts:
             - name: config-volume
-              mountPath: /opt/app-root/src/config # Update me
-          resources:
+              mountPath: /opt/app-root/src/public
             {{- .Values.resources | toYaml | nindent 12 }}
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
