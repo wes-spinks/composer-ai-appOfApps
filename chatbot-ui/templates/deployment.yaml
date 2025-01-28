@@ -36,10 +36,12 @@ spec:
       {{- end }}
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
+      {{- if eq .Values.openid.enabled "false" }}
       volumes:
       - name: config-volume
         configMap:
           name: {{ .Values.name }}-config
+      {{- end }}
   strategy:
     type: RollingUpdate
     rollingUpdate:

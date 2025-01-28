@@ -48,6 +48,9 @@
         - name: "{{ .Values.name }}-oauth"
           configMap:
             name: "{{ .Values.name }}-oauth"
+        - name: config-volume
+          configMap:
+            name: "{{ .Values.name }}-config"
         # - name: cert-mount
         #   secret:
         #     secretName: "{{ .Values.name }}-certs"
